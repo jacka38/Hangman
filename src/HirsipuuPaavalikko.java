@@ -1,6 +1,12 @@
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class HirsipuuPaavalikko extends JFrame implements ActionListener {
    private JButton newGameButton, rulesButton, statsButton, exitButton;
@@ -56,7 +62,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
       // Create the title label
       JLabel titleLabel = new JLabel("HANGMAN");
-      titleLabel.setFont(new Font("Arial", Font.BOLD, 36));
+      titleLabel.setFont(new Font("Arial", Font.BOLD, 32));
       titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
       // Create the buttons
@@ -90,6 +96,13 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       menuPanel.add(titleLabel);
       menuPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
+      JLabel label = new JLabel();
+      Image img = new ImageIcon(this.getClass().getResource("hirsipuu.gif")).getImage();
+      Image newImage = img.getScaledInstance(150, 150, Image.SCALE_DEFAULT);
+      label.setIcon(new ImageIcon(newImage));
+      label.setAlignmentX(Component.CENTER_ALIGNMENT);
+      menuPanel.add(label); // Add the label containing the gif to the menuPanel
+
       menuPanel.add(newGameButton);
       menuPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
@@ -111,7 +124,6 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       // Create the panel for the new game card
       JPanel newGameCard = new JPanel();
       newGameCard.add(new JLabel("Uusi Peli"));
-      newGameCard.setBackground(Color.WHITE);
 
       return newGameCard;
    }
@@ -120,17 +132,32 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       // Create the panel for the rules card
       JPanel rulesCard = new JPanel();
       rulesCard.add(new JLabel("Säännöt"));
-      rulesCard.setBackground(Color.WHITE);
+      JButton backButton = new JButton("Palaa päävalikkoon");
+      backButton.addActionListener(new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+            cardPanel.add(createMenuCard(), "MainMenu");
+            cardLayout.show(cardPanel, "MainMenu");
+         }
+      });
 
+      rulesCard.add(backButton);
+
+
+   
+      HirsipuuSäännöt jtn = new HirsipuuSäännöt();
+      String rules = jtn.GetSäännöt();
+      JTextArea  rulesTextArea = new JTextArea(rules);
+      rulesTextArea.setEditable(false);
+      rulesCard.add(rulesTextArea);
       return rulesCard;
    }
+
 
    private JPanel createStatsCard() {
       // Create the panel for the stats card
       JPanel statsCard = new JPanel();
       statsCard.add(new JLabel("Tilastot"));
-      statsCard.setBackground(Color.WHITE);
-
       return statsCard;
    }
 
@@ -159,6 +186,11 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
             System.exit(0);
             break;
 
+         case "Päävalikko":
+            cardPanel.add(createMenuCard(), "MainMenu");
+            cardLayout.show(cardPanel, "MainMenu");
+            break;
+            
          default:
             break;
       }
@@ -171,7 +203,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       
       int buttonPanelY = (contentPaneSize.height - buttonPanelSize.height) / 2;
       
-      ((JPanel) getContentPane().getComponent(0)).setAlignmentY(Component.TOP_ALIGNMENT);
+      ((JPanel) getContentPane().getComponent(0)).setAlignmentY(Component.CENTER_ALIGNMENT);
       ((JPanel) getContentPane().getComponent(0)).setLocation(0, buttonPanelY);
   }
    
