@@ -19,7 +19,7 @@ public class HirsipuuSäännöt{
 
 
         StringBuilder rules = new StringBuilder();
-        try(BufferedReader reader = new BufferedReader(new FileReader("Testi123.txt"))){
+        try(BufferedReader reader = new BufferedReader(new FileReader("src/Testi123.txt"))){
             String line; 
             while((line = reader.readLine()) != null){
                 rules.append(line).append("\n");
