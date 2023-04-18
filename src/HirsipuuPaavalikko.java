@@ -24,13 +24,17 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       // Center the frame on the screen
       setLocationRelativeTo(null);
 
+      /* 
+
+      ****THIS IS BROKEN ATM, IT DOESNT RECENTER CORRECTLY WHEN COMING BACK TO MENU PAGE AND IS BUGGY****
+
       // Add a component listener to the frame to handle window resizing
       addComponentListener(new ComponentAdapter() {
          public void componentResized(ComponentEvent e) {
             // Center the buttons horizontally in the panel
             centerMenuButtons();
          }
-      });
+      }); */
 
       // Make the frame visible
       setVisible(true);
@@ -166,6 +170,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       // Get the command from the action event
       String command = e.getActionCommand();
       // Switch to the appropriate card based on the command
+
       switch (command) {
          case "Uusi Peli":
             cardPanel.add(createNewGameCard(), "NewGame");
@@ -190,11 +195,14 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
             cardPanel.add(createMenuCard(), "MainMenu");
             cardLayout.show(cardPanel, "MainMenu");
             break;
-            
+
          default:
             break;
       }
    }
+
+   /*    
+      ****THIS IS BROKEN ATM, IT DOESNT RECENTER CORRECTLY WHEN COMING BACK TO MENU PAGE AND IS BUGGY****
 
    private void centerMenuButtons() {
       //Center the menu when resizing
@@ -205,6 +213,6 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       
       ((JPanel) getContentPane().getComponent(0)).setAlignmentY(Component.CENTER_ALIGNMENT);
       ((JPanel) getContentPane().getComponent(0)).setLocation(0, buttonPanelY);
-  }
+  } */
    
 }
