@@ -133,10 +133,14 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
    }
 
    private JPanel createRulesCard() {
+    
       // Create the panel for the rules card
-      JPanel rulesCard = new JPanel();
+      JPanel rulesCard = new JPanel(new BorderLayout());
+      JPanel bottomPanel = new JPanel(new BorderLayout());
       rulesCard.add(new JLabel("Säännöt"));
       JButton backButton = new JButton("Palaa päävalikkoon");
+
+
       backButton.addActionListener(new ActionListener() {
          @Override
          public void actionPerformed(ActionEvent e) {
@@ -145,14 +149,13 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
          }
       });
 
-      rulesCard.add(backButton);
-
-
-   
+      bottomPanel.add(backButton, BorderLayout.LINE_END);
+      rulesCard.add(bottomPanel, BorderLayout.PAGE_END);
       HirsipuuSäännöt jtn = new HirsipuuSäännöt();
       String rules = jtn.GetSäännöt();
       JTextArea  rulesTextArea = new JTextArea(rules);
       rulesTextArea.setEditable(false);
+      rulesTextArea.setBackground(getBackground());
       rulesCard.add(rulesTextArea);
       return rulesCard;
    }
