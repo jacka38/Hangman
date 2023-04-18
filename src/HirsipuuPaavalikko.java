@@ -1,12 +1,9 @@
-import javax.swing.*;
-import javax.swing.border.EmptyBorder;
+package src;
 
+
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
 
 public class HirsipuuPaavalikko extends JFrame implements ActionListener {
    private JButton newGameButton, rulesButton, statsButton, exitButton;
