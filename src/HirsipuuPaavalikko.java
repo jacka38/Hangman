@@ -122,6 +122,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
    }
 
    private JButton createBackButton() {
+      //Create the back to main menu button
       JButton backButton = new JButton("Palaa päävalikkoon");
       backButton.addActionListener(new ActionListener() {
          @Override
@@ -133,17 +134,22 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       return backButton;
    }
 
+   private JLabel createTitleLabel(String titleText) {
+      //Create Title label for the cards
+      JLabel titleLabel = new JLabel(titleText);
+      titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
+      titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+      return titleLabel;
+   }
+
    private JPanel createNewGameCard() {
       // Create the panel for the new game card
       JPanel newGameCard = new JPanel(new BorderLayout());
       JPanel bottomPanel = new JPanel(new BorderLayout());
       JButton backButton = createBackButton();
 
-      JLabel gameSettingsTitle = new JLabel("Peli asetukset");
-         gameSettingsTitle.setFont(new Font("Arial", Font.BOLD, 16));
-         gameSettingsTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-         newGameCard.add(gameSettingsTitle, BorderLayout.NORTH);
-
+      JLabel gameSettingsTitle = createTitleLabel("Peli asetukset");
+      newGameCard.add(gameSettingsTitle, BorderLayout.NORTH);
 
       bottomPanel.add(backButton, BorderLayout.LINE_END);
       newGameCard.add(bottomPanel, BorderLayout.PAGE_END);
@@ -158,10 +164,8 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       JPanel bottomPanel = new JPanel(new BorderLayout());
       JButton backButton = createBackButton();
 
-      JLabel rulesTitle = new JLabel("Säännöt");
-         rulesTitle.setFont(new Font("Arial", Font.BOLD, 16));
-         rulesTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-         rulesCard.add(rulesTitle, BorderLayout.NORTH);
+      JLabel rulesTitle = createTitleLabel("Säännöt");
+      rulesCard.add(rulesTitle, BorderLayout.NORTH);
 
       bottomPanel.add(backButton, BorderLayout.LINE_END);
       rulesCard.add(bottomPanel, BorderLayout.PAGE_END);
@@ -191,10 +195,8 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       JPanel bottomPanel = new JPanel(new BorderLayout());
       JButton backButton = createBackButton();
 
-      JLabel statsTitle = new JLabel("Tilastot");
-         statsTitle.setFont(new Font("Arial", Font.BOLD, 16));
-         statsTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-         statsCard.add(statsTitle, BorderLayout.NORTH);
+      JLabel statsTitle = createTitleLabel("Tilastot");
+      statsCard.add(statsTitle, BorderLayout.NORTH);   
 
       bottomPanel.add(backButton, BorderLayout.LINE_END);
       statsCard.add(bottomPanel, BorderLayout.PAGE_END);
