@@ -1,4 +1,4 @@
-
+package src;
 
 import javax.swing.*;
 import java.awt.*;
@@ -120,17 +120,9 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       return menuCard;
    }
 
-   private JPanel createNewGameCard() {
-      // Create the panel for the new game card
-      JPanel newGameCard = new JPanel(new BorderLayout());
-      JPanel bottomPanel = new JPanel(new BorderLayout());
+   private JButton createBackButton() {
+      //Create the back to main menu button
       JButton backButton = new JButton("Palaa päävalikkoon");
-
-      JLabel gameSettingsTitle = new JLabel("Peli asetukset");
-         gameSettingsTitle.setFont(new Font("Arial", Font.BOLD, 14));
-         gameSettingsTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
-         newGameCard.add(gameSettingsTitle, BorderLayout.NORTH);
-
       backButton.addActionListener(new ActionListener() {
          @Override
          public void actionPerformed(ActionEvent e) {
@@ -138,10 +130,94 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
             cardLayout.show(cardPanel, "MainMenu");
          }
       });
+      return backButton;
+   }
 
-      bottomPanel.add(backButton, BorderLayout.LINE_END);
-      newGameCard.add(bottomPanel, BorderLayout.PAGE_END);
+   private JLabel createTitleLabel(String titleText) {
+      //Create Title label for the cards
+      JLabel titleLabel = new JLabel(titleText);
+      titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
+      titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+      return titleLabel;
+   }
 
+   private JPanel createNewGameCard() {
+      // Create the panel for the new game card
+      JPanel newGameCard = new JPanel(new GridBagLayout());
+      GridBagConstraints c = new GridBagConstraints();
+      JButton backButton = createBackButton();
+
+      JLabel gameSettingsTitle = createTitleLabel("Peli asetukset");
+         c.weighty = 1;
+         c.weightx = 0.5;
+         c.fill = GridBagConstraints.HORIZONTAL;
+         c.anchor = GridBagConstraints.FIRST_LINE_START;
+         c.gridx = 0;
+         c.gridy = 0;
+         newGameCard.add(gameSettingsTitle, c);
+      JLabel categoryTitle = new JLabel("Kategoriat:");
+   
+      c.gridy = 1;
+      c.gridx = 1;
+      c.weightx = 0.5;
+      c.weighty = 1;
+
+      newGameCard.add(categoryTitle, c);
+      
+
+      HirsipuuPeliAsetukset peliasetukset = new HirsipuuPeliAsetukset();
+
+      JComboBox kategorialista = peliasetukset.LuoKategoriat();
+      kategorialista.setSelectedIndex(0);
+
+      c.fill = GridBagConstraints.HORIZONTAL;
+      c.anchor = GridBagConstraints.FIRST_LINE_START;
+      c.gridx = 2;
+      c.gridy = 1;
+      c.weighty = 0;
+      kategorialista.addActionListener(this);
+      newGameCard.add(kategorialista, c);
+
+      JRadioButton helppo = peliasetukset.getHelppo();
+      JRadioButton Keskivaikea = peliasetukset.getKeskivaikea();
+      JRadioButton Vaikea = peliasetukset.getVaikea();
+      JRadioButton Mahdoton = peliasetukset.getMahdoton();
+      ButtonGroup group = new ButtonGroup();
+      group.add(helppo);
+      group.add(Keskivaikea);
+      group.add(Vaikea);
+      group.add(Mahdoton);
+      helppo.addActionListener(this);
+      Keskivaikea.addActionListener(this);
+      Vaikea.addActionListener(this);
+      Mahdoton.addActionListener(this);
+
+      JLabel vaikeustasotitle = new JLabel("Vaikeustasot:");
+      c.gridy = 3;
+      c.gridx = 1;
+      c.fill = GridBagConstraints.HORIZONTAL;
+      c.anchor = GridBagConstraints.FIRST_LINE_START;
+      newGameCard.add(vaikeustasotitle, c);
+      c.gridx = 2;
+      c.gridy = 3;
+      newGameCard.add(helppo, c);
+
+      c.gridy = 4;
+      newGameCard.add(Keskivaikea, c);
+
+      c.gridy = 5;
+      newGameCard.add(Vaikea, c);
+
+      c.gridy = 6;
+      c.weighty = 1;
+      newGameCard.add(Mahdoton, c);
+
+      c.gridx = 4;
+      c.gridy = 10;
+      c.fill = GridBagConstraints.LAST_LINE_END;
+      c.anchor = GridBagConstraints.LAST_LINE_END;
+      newGameCard.add(backButton, c);
+      
       return newGameCard;
    }
 
@@ -150,21 +226,14 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       // Create the panel for the rules card
       JPanel rulesCard = new JPanel(new BorderLayout());
       JPanel bottomPanel = new JPanel(new BorderLayout());
-      JButton backButton = new JButton("Palaa päävalikkoon");
+      JButton backButton = createBackButton();
 
-      JLabel rulesTitle = new JLabel("Säännöt");
-         rulesTitle.setFont(new Font("Arial", Font.BOLD, 14));
+      JLabel rulesTitle = createTitleLabel("Säännöt");
          rulesTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
          rulesCard.add(rulesTitle, BorderLayout.NORTH);
 
 
-      backButton.addActionListener(new ActionListener() {
-         @Override
-         public void actionPerformed(ActionEvent e) {
-            cardPanel.add(createMenuCard(), "MainMenu");
-            cardLayout.show(cardPanel, "MainMenu");
-         }
-      });
+      
 
       bottomPanel.add(backButton, BorderLayout.LINE_END);
       rulesCard.add(bottomPanel, BorderLayout.PAGE_END);
@@ -183,20 +252,13 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
       JPanel statsCard = new JPanel(new BorderLayout());
       JPanel bottomPanel = new JPanel(new BorderLayout());
-      JButton backButton = new JButton("Palaa päävalikkoon");
+      JButton backButton = createBackButton();
 
-      JLabel statsTitle = new JLabel("Tilastot");
-         statsTitle.setFont(new Font("Arial", Font.BOLD, 14));
+      JLabel statsTitle = createTitleLabel("Tilastot");
          statsTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
          statsCard.add(statsTitle, BorderLayout.NORTH);
 
-      backButton.addActionListener(new ActionListener() {
-         @Override
-         public void actionPerformed(ActionEvent e) {
-            cardPanel.add(createMenuCard(), "MainMenu");
-            cardLayout.show(cardPanel, "MainMenu");
-         }
-      });
+      
 
       bottomPanel.add(backButton, BorderLayout.LINE_END);
       statsCard.add(bottomPanel, BorderLayout.PAGE_END);
