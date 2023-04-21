@@ -1,4 +1,3 @@
-package src;
 
 import javax.swing.*;
 import java.awt.*;
@@ -62,8 +61,8 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
       // Create the title label
       JLabel titleLabel = new JLabel("HANGMAN");
-      titleLabel.setFont(new Font("Arial", Font.BOLD, 32));
-      titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+         titleLabel.setFont(new Font("Arial", Font.BOLD, 32));
+         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
       // Create the buttons
       newGameButton = new JButton("Uusi Peli");
@@ -90,11 +89,11 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
       // Create the panel for the menu card
       menuPanel = new JPanel();
-      menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
-      menuPanel.add(Box.createVerticalGlue()); // Add vertical glue to center the buttons
+         menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
+         menuPanel.add(Box.createVerticalGlue()); // Add vertical glue to center the buttons
 
-      menuPanel.add(titleLabel);
-      menuPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+         menuPanel.add(titleLabel);
+         menuPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
       JLabel label = new JLabel();
       Image img = new ImageIcon(this.getClass().getResource("hirsipuu1.gif")).getImage();
@@ -226,7 +225,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       // Create the panel for the rules card
       JPanel rulesCard = new JPanel(new BorderLayout());
       JPanel bottomPanel = new JPanel(new BorderLayout());
-      JButton backButton = createBackButton();
+      JButton backButton = new JButton("Palaa päävalikkoon");
 
       JLabel rulesTitle = createTitleLabel("Säännöt");
          rulesTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -237,12 +236,21 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
       bottomPanel.add(backButton, BorderLayout.LINE_END);
       rulesCard.add(bottomPanel, BorderLayout.PAGE_END);
+
       HirsipuuSäännöt jtn = new HirsipuuSäännöt();
       String rules = jtn.GetSäännöt();
       JTextArea  rulesTextArea = new JTextArea(rules);
-      rulesTextArea.setEditable(false);
-      rulesTextArea.setBackground(getBackground());
-      rulesCard.add(rulesTextArea);
+         rulesTextArea.setEditable(false);
+         rulesTextArea.setBackground(getBackground());
+         rulesTextArea.setFont(new Font("SansSerif", Font.PLAIN, 12));
+
+      // Put the text area inside a scroll pane
+      JScrollPane scrollPane = new JScrollPane(rulesTextArea);
+         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+      rulesCard.add(scrollPane, BorderLayout.CENTER);
+
       return rulesCard;
    }
 
@@ -252,6 +260,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
       JPanel statsCard = new JPanel(new BorderLayout());
       JPanel bottomPanel = new JPanel(new BorderLayout());
+      JButton backButton = createBackButton();
       JButton backButton = createBackButton();
 
       JLabel statsTitle = createTitleLabel("Tilastot");
