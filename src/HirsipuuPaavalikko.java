@@ -1,4 +1,3 @@
-package src;
 
 
 import javax.swing.*;
@@ -123,8 +122,25 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
    private JPanel createNewGameCard() {
       // Create the panel for the new game card
-      JPanel newGameCard = new JPanel();
-      newGameCard.add(new JLabel("Uusi Peli"));
+      JPanel newGameCard = new JPanel(new BorderLayout());
+      JPanel bottomPanel = new JPanel(new BorderLayout());
+      JButton backButton = new JButton("Palaa päävalikkoon");
+
+      JLabel gameSettingsTitle = new JLabel("Peli asetukset");
+         gameSettingsTitle.setFont(new Font("Arial", Font.BOLD, 14));
+         gameSettingsTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+         newGameCard.add(gameSettingsTitle, BorderLayout.NORTH);
+
+      backButton.addActionListener(new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+            cardPanel.add(createMenuCard(), "MainMenu");
+            cardLayout.show(cardPanel, "MainMenu");
+         }
+      });
+
+      bottomPanel.add(backButton, BorderLayout.LINE_END);
+      newGameCard.add(bottomPanel, BorderLayout.PAGE_END);
 
       return newGameCard;
    }
@@ -134,8 +150,12 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       // Create the panel for the rules card
       JPanel rulesCard = new JPanel(new BorderLayout());
       JPanel bottomPanel = new JPanel(new BorderLayout());
-      rulesCard.add(new JLabel("Säännöt"));
       JButton backButton = new JButton("Palaa päävalikkoon");
+
+      JLabel rulesTitle = new JLabel("Säännöt");
+         rulesTitle.setFont(new Font("Arial", Font.BOLD, 14));
+         rulesTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+         rulesCard.add(rulesTitle, BorderLayout.NORTH);
 
 
       backButton.addActionListener(new ActionListener() {
@@ -160,8 +180,27 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
    private JPanel createStatsCard() {
       // Create the panel for the stats card
-      JPanel statsCard = new JPanel();
-      statsCard.add(new JLabel("Tilastot"));
+
+      JPanel statsCard = new JPanel(new BorderLayout());
+      JPanel bottomPanel = new JPanel(new BorderLayout());
+      JButton backButton = new JButton("Palaa päävalikkoon");
+
+      JLabel statsTitle = new JLabel("Tilastot");
+         statsTitle.setFont(new Font("Arial", Font.BOLD, 14));
+         statsTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
+         statsCard.add(statsTitle, BorderLayout.NORTH);
+
+      backButton.addActionListener(new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+            cardPanel.add(createMenuCard(), "MainMenu");
+            cardLayout.show(cardPanel, "MainMenu");
+         }
+      });
+
+      bottomPanel.add(backButton, BorderLayout.LINE_END);
+      statsCard.add(bottomPanel, BorderLayout.PAGE_END);
+
       return statsCard;
    }
 
