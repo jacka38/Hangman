@@ -226,14 +226,10 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       // Create the panel for the rules card
       JPanel rulesCard = new JPanel(new BorderLayout());
       JPanel bottomPanel = new JPanel(new BorderLayout());
-      JButton backButton = new JButton("Palaa päävalikkoon");
+      JButton backButton = createBackButton();
 
       JLabel rulesTitle = createTitleLabel("Säännöt");
-         rulesTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
          rulesCard.add(rulesTitle, BorderLayout.NORTH);
-
-
-      
 
       bottomPanel.add(backButton, BorderLayout.LINE_END);
       rulesCard.add(bottomPanel, BorderLayout.PAGE_END);
@@ -264,7 +260,6 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       JButton backButton = createBackButton();
 
       JLabel statsTitle = createTitleLabel("Tilastot");
-         statsTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
          statsCard.add(statsTitle, BorderLayout.NORTH);
 
       
