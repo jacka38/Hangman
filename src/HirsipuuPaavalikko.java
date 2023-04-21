@@ -1,5 +1,6 @@
 
 
+import javax.crypto.spec.DESKeySpec;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -127,7 +128,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       JButton backButton = new JButton("Palaa päävalikkoon");
 
       JLabel gameSettingsTitle = new JLabel("Peli asetukset");
-         gameSettingsTitle.setFont(new Font("Arial", Font.BOLD, 14));
+         gameSettingsTitle.setFont(new Font("Arial", Font.BOLD, 16));
          gameSettingsTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
          newGameCard.add(gameSettingsTitle, BorderLayout.NORTH);
 
@@ -153,7 +154,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       JButton backButton = new JButton("Palaa päävalikkoon");
 
       JLabel rulesTitle = new JLabel("Säännöt");
-         rulesTitle.setFont(new Font("Arial", Font.BOLD, 14));
+         rulesTitle.setFont(new Font("Arial", Font.BOLD, 16));
          rulesTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
          rulesCard.add(rulesTitle, BorderLayout.NORTH);
 
@@ -168,12 +169,21 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
       bottomPanel.add(backButton, BorderLayout.LINE_END);
       rulesCard.add(bottomPanel, BorderLayout.PAGE_END);
+
       HirsipuuSäännöt jtn = new HirsipuuSäännöt();
       String rules = jtn.GetSäännöt();
       JTextArea  rulesTextArea = new JTextArea(rules);
       rulesTextArea.setEditable(false);
       rulesTextArea.setBackground(getBackground());
-      rulesCard.add(rulesTextArea);
+      rulesTextArea.setFont(new Font("SansSerif", Font.PLAIN, 12));
+
+      // Put the text area inside a scroll pane
+      JScrollPane scrollPane = new JScrollPane(rulesTextArea);
+      scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+      scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+
+      rulesCard.add(scrollPane, BorderLayout.CENTER);
+
       return rulesCard;
    }
 
@@ -186,7 +196,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       JButton backButton = new JButton("Palaa päävalikkoon");
 
       JLabel statsTitle = new JLabel("Tilastot");
-         statsTitle.setFont(new Font("Arial", Font.BOLD, 14));
+         statsTitle.setFont(new Font("Arial", Font.BOLD, 16));
          statsTitle.setAlignmentX(Component.CENTER_ALIGNMENT);
          statsCard.add(statsTitle, BorderLayout.NORTH);
 
