@@ -1,3 +1,4 @@
+package src; 
 
 import javax.swing.*;
 import java.awt.*;
@@ -260,7 +261,6 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
       JPanel statsCard = new JPanel(new BorderLayout());
       JPanel bottomPanel = new JPanel(new BorderLayout());
-      JButton backButton = createBackButton();
       JButton backButton = createBackButton();
 
       JLabel statsTitle = createTitleLabel("Tilastot");
