@@ -1,5 +1,3 @@
-package src; 
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -20,17 +18,17 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       // Center the frame on the screen
       setLocationRelativeTo(null);
 
-      /* 
-
-      ****THIS IS BROKEN ATM, IT DOESNT RECENTER CORRECTLY WHEN COMING BACK TO MENU PAGE AND IS BUGGY****
-
-      // Add a component listener to the frame to handle window resizing
-      addComponentListener(new ComponentAdapter() {
-         public void componentResized(ComponentEvent e) {
-            // Center the buttons horizontally in the panel
-            centerMenuButtons();
-         }
-      }); */
+      /*
+       **** THIS IS BROKEN ATM, IT DOESNT RECENTER CORRECTLY WHEN COMING BACK TO MENU
+       * PAGE AND IS BUGGY****
+       * // Add a component listener to the frame to handle window resizing
+       * addComponentListener(new ComponentAdapter() {
+       * public void componentResized(ComponentEvent e) {
+       * // Center the buttons horizontally in the panel
+       * centerMenuButtons();
+       * }
+       * });
+       */
 
       // Make the frame visible
       setVisible(true);
@@ -62,8 +60,8 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
       // Create the title label
       JLabel titleLabel = new JLabel("HANGMAN");
-         titleLabel.setFont(new Font("Arial", Font.BOLD, 32));
-         titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
+      titleLabel.setFont(new Font("Arial", Font.BOLD, 32));
+      titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
 
       // Create the buttons
       newGameButton = new JButton("Uusi Peli");
@@ -90,11 +88,11 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
       // Create the panel for the menu card
       menuPanel = new JPanel();
-         menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
-         menuPanel.add(Box.createVerticalGlue()); // Add vertical glue to center the buttons
+      menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
+      menuPanel.add(Box.createVerticalGlue()); // Add vertical glue to center the buttons
 
-         menuPanel.add(titleLabel);
-         menuPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+      menuPanel.add(titleLabel);
+      menuPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
       JLabel label = new JLabel();
       Image img = new ImageIcon(this.getClass().getResource("hirsipuu1.gif")).getImage();
@@ -121,7 +119,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
    }
 
    private JButton createBackButton() {
-      //Create the back to main menu button
+      // Create the back to main menu button
       JButton backButton = new JButton("Palaa päävalikkoon");
       backButton.addActionListener(new ActionListener() {
          @Override
@@ -133,8 +131,21 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       return backButton;
    }
 
+   private JButton createStartButton() {
+      // Create the back to main menu button
+      JButton startButton = new JButton("Aloita peli");
+      startButton.addActionListener(new ActionListener() {
+         @Override
+         public void actionPerformed(ActionEvent e) {
+            cardPanel.add(createPlayViewCard(), "PlayView");
+            cardLayout.show(cardPanel, "PlayView");
+         }
+      });
+      return startButton;
+   }
+
    private JLabel createTitleLabel(String titleText) {
-      //Create Title label for the cards
+      // Create Title label for the cards
       JLabel titleLabel = new JLabel(titleText);
       titleLabel.setFont(new Font("Arial", Font.BOLD, 16));
       titleLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -146,24 +157,25 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       JPanel newGameCard = new JPanel(new GridBagLayout());
       GridBagConstraints c = new GridBagConstraints();
       JButton backButton = createBackButton();
+      JButton startButton = createStartButton();
 
       JLabel gameSettingsTitle = createTitleLabel("Peli asetukset");
-         c.weighty = 1;
-         c.weightx = 0.5;
-         c.fill = GridBagConstraints.HORIZONTAL;
-         c.anchor = GridBagConstraints.FIRST_LINE_START;
-         c.gridx = 0;
-         c.gridy = 0;
-         newGameCard.add(gameSettingsTitle, c);
+      c.weighty = 1;
+      c.weightx = 0.5;
+      c.fill = GridBagConstraints.HORIZONTAL;
+      c.anchor = GridBagConstraints.FIRST_LINE_START;
+      c.gridx = 0;
+      c.gridy = 0;
+      newGameCard.add(gameSettingsTitle, c);
+
       JLabel categoryTitle = new JLabel("Kategoriat:");
-   
+
       c.gridy = 1;
       c.gridx = 1;
       c.weightx = 0.5;
       c.weighty = 1;
 
       newGameCard.add(categoryTitle, c);
-      
 
       HirsipuuPeliAsetukset peliasetukset = new HirsipuuPeliAsetukset();
 
@@ -217,40 +229,45 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       c.fill = GridBagConstraints.LAST_LINE_END;
       c.anchor = GridBagConstraints.LAST_LINE_END;
       newGameCard.add(backButton, c);
-      
+
+      c.gridx = 0;
+      c.gridy = 10;
+      c.fill = GridBagConstraints.LAST_LINE_START;
+      c.anchor = GridBagConstraints.LAST_LINE_START;
+      newGameCard.add(startButton, c);
+
       return newGameCard;
    }
 
    private JPanel createRulesCard() {
-    
+
       // Create the panel for the rules card
       JPanel rulesCard = new JPanel(new BorderLayout());
       JPanel bottomPanel = new JPanel(new BorderLayout());
       JButton backButton = createBackButton();
 
       JLabel rulesTitle = createTitleLabel("Säännöt");
-         rulesCard.add(rulesTitle, BorderLayout.NORTH);
+      rulesCard.add(rulesTitle, BorderLayout.NORTH);
 
       bottomPanel.add(backButton, BorderLayout.LINE_END);
       rulesCard.add(bottomPanel, BorderLayout.PAGE_END);
 
       HirsipuuSäännöt jtn = new HirsipuuSäännöt();
       String rules = jtn.GetSäännöt();
-      JTextArea  rulesTextArea = new JTextArea(rules);
-         rulesTextArea.setEditable(false);
-         rulesTextArea.setBackground(getBackground());
-         rulesTextArea.setFont(new Font("SansSerif", Font.PLAIN, 12));
+      JTextArea rulesTextArea = new JTextArea(rules);
+      rulesTextArea.setEditable(false);
+      rulesTextArea.setBackground(getBackground());
+      rulesTextArea.setFont(new Font("SansSerif", Font.PLAIN, 12));
 
       // Put the text area inside a scroll pane
       JScrollPane scrollPane = new JScrollPane(rulesTextArea);
-         scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+      scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+      scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
 
       rulesCard.add(scrollPane, BorderLayout.CENTER);
 
       return rulesCard;
    }
-
 
    private JPanel createStatsCard() {
       // Create the panel for the stats card
@@ -260,14 +277,28 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       JButton backButton = createBackButton();
 
       JLabel statsTitle = createTitleLabel("Tilastot");
-         statsCard.add(statsTitle, BorderLayout.NORTH);
-
-      
+      statsCard.add(statsTitle, BorderLayout.NORTH);
 
       bottomPanel.add(backButton, BorderLayout.LINE_END);
       statsCard.add(bottomPanel, BorderLayout.PAGE_END);
 
       return statsCard;
+   }
+
+   private JPanel createPlayViewCard() {
+      // Create the panel for the stats card
+
+      JPanel playViewCard = new JPanel(new BorderLayout());
+      JPanel bottomPanel = new JPanel(new BorderLayout());
+      JButton backButton = createBackButton();
+
+      JLabel statsTitle = createTitleLabel("Hirsipuu");
+      playViewCard.add(statsTitle, BorderLayout.NORTH);
+
+      bottomPanel.add(backButton, BorderLayout.LINE_END);
+      playViewCard.add(bottomPanel, BorderLayout.PAGE_END);
+
+      return playViewCard;
    }
 
    @Override
@@ -306,18 +337,21 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       }
    }
 
-   /*    
-      ****THIS IS BROKEN ATM, IT DOESNT RECENTER CORRECTLY WHEN COMING BACK TO MENU PAGE AND IS BUGGY****
+   /*
+    **** THIS IS BROKEN ATM, IT DOESNT RECENTER CORRECTLY WHEN COMING BACK TO MENU
+    * PAGE AND IS BUGGY****
+    * private void centerMenuButtons() {
+    * //Center the menu when resizing
+    * Dimension contentPaneSize = getContentPane().getSize();
+    * Dimension buttonPanelSize = ((JPanel)
+    * getContentPane().getComponent(0)).getPreferredSize();
+    * 
+    * int buttonPanelY = (contentPaneSize.height - buttonPanelSize.height) / 2;
+    * 
+    * ((JPanel)
+    * getContentPane().getComponent(0)).setAlignmentY(Component.CENTER_ALIGNMENT);
+    * ((JPanel) getContentPane().getComponent(0)).setLocation(0, buttonPanelY);
+    * }
+    */
 
-   private void centerMenuButtons() {
-      //Center the menu when resizing
-      Dimension contentPaneSize = getContentPane().getSize(); 
-      Dimension buttonPanelSize = ((JPanel) getContentPane().getComponent(0)).getPreferredSize();
-      
-      int buttonPanelY = (contentPaneSize.height - buttonPanelSize.height) / 2;
-      
-      ((JPanel) getContentPane().getComponent(0)).setAlignmentY(Component.CENTER_ALIGNMENT);
-      ((JPanel) getContentPane().getComponent(0)).setLocation(0, buttonPanelY);
-  } */
-   
 }
