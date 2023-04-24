@@ -8,6 +8,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
    private JButton newGameButton, rulesButton, statsButton, exitButton;
    private JPanel cardPanel, menuPanel;
    private CardLayout cardLayout;
+   public JComboBox kategorialista;
 
    public HirsipuuPaavalikko() {
       setTitle("Hirsipuu");
@@ -182,7 +183,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
       HirsipuuPeliAsetukset peliasetukset = new HirsipuuPeliAsetukset();
 
-      JComboBox kategorialista = peliasetukset.LuoKategoriat();
+      kategorialista = peliasetukset.LuoKategoriat();
       kategorialista.setSelectedIndex(0);
 
       c.fill = GridBagConstraints.HORIZONTAL;
@@ -297,13 +298,65 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
    private JPanel createPlayViewCard() {
       // Create the panel for the stats card
-
       JPanel playViewCard = new JPanel(new BorderLayout());
       JPanel bottomPanel = new JPanel(new BorderLayout());
       JButton backButton = createBackButton();
+      HirsipuuHaeSana sananvalinta = new HirsipuuHaeSana();
+      String Valittusana = sananvalinta.SanaTiedosto(kategorialista.getSelectedItem().toString());
 
-      JLabel statsTitle = createTitleLabel("Hirsipuu");
-      playViewCard.add(statsTitle, BorderLayout.NORTH);
+      System.out.println(Valittusana);
+      String[] words = { "Audi", "Mersu", "Toyota" };
+
+      JLabel gameTitle = createTitleLabel("Hirsipuu");
+      playViewCard.add(gameTitle, BorderLayout.NORTH);
+
+      // Generate a random word from the array
+      String randomWord = words[(int) (Math.random() * words.length)];
+
+      // Create the panel for the hangman lines and word lines
+      JPanel wordPanel = new JPanel();
+      wordPanel.setLayout(new BoxLayout(wordPanel, BoxLayout.X_AXIS));
+      wordPanel.add(Box.createHorizontalGlue()); // add glue to center wordPanel horizontally
+
+      // Add the labels for each letter in the random word
+      int wordLength = randomWord.length();
+      for (int i = 0; i < wordLength; i++) {
+         wordPanel.add(new JLabel("_ "));
+      }
+      wordPanel.add(Box.createHorizontalGlue()); // add glue to center wordPanel horizontally
+
+      JPanel hangmanPanel = new JPanel(new BorderLayout());
+      hangmanPanel.add(wordPanel, BorderLayout.CENTER);
+
+      String row1 = "1234567890";
+      String row2 = "QWERTYUIOPÅ";
+      String row3 = "ASDFGHJKLÖÄ";
+      String row4 = "ZXCVBNM";
+
+      String[] rows = { row1, row2, row3, row4 };
+      JPanel buttonPanel = new JPanel(new GridBagLayout());
+      GridBagConstraints c = new GridBagConstraints();
+      c.weightx = 1.0;
+      c.weighty = 0;
+      c.fill = GridBagConstraints.BOTH;
+      for (int i = 0; i < rows.length; i++) {
+         char[] keys = rows[i].toCharArray();
+         for (int j = 0; j < keys.length; j++) {
+            JButton button = new JButton(Character.toString(keys[j]));
+            c.gridx = j;
+            c.gridy = i;
+            buttonPanel.add(button, c);
+         }
+      }
+
+      JPanel wordAndBottomPanel = new JPanel(new BorderLayout());
+      wordAndBottomPanel.add(wordPanel, BorderLayout.CENTER);
+      wordAndBottomPanel.add(bottomPanel, BorderLayout.SOUTH);
+
+      hangmanPanel.add(wordAndBottomPanel, BorderLayout.CENTER);
+      hangmanPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+      playViewCard.add(hangmanPanel, BorderLayout.CENTER);
 
       bottomPanel.add(backButton, BorderLayout.LINE_END);
       playViewCard.add(bottomPanel, BorderLayout.PAGE_END);
@@ -346,6 +399,9 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
             break;
       }
    }
+
+
+   
 
    /*
     **** THIS IS BROKEN ATM, IT DOESNT RECENTER CORRECTLY WHEN COMING BACK TO MENU
