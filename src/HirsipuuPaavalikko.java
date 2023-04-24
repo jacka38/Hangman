@@ -1,3 +1,5 @@
+package src;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -161,7 +163,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
       JLabel gameSettingsTitle = createTitleLabel("Peli asetukset");
       c.weighty = 1;
-      c.weightx = 0.5;
+      c.weightx = 1;
       c.fill = GridBagConstraints.HORIZONTAL;
       c.anchor = GridBagConstraints.FIRST_LINE_START;
       c.gridx = 0;
@@ -172,8 +174,9 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
       c.gridy = 1;
       c.gridx = 1;
-      c.weightx = 0.5;
-      c.weighty = 1;
+      c.weightx = 0;
+      c.weighty = 0;
+
 
       newGameCard.add(categoryTitle, c);
 
@@ -189,6 +192,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       c.weighty = 0;
       kategorialista.addActionListener(this);
       newGameCard.add(kategorialista, c);
+      
 
       JRadioButton helppo = peliasetukset.getHelppo();
       JRadioButton Keskivaikea = peliasetukset.getKeskivaikea();
@@ -205,18 +209,22 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       Mahdoton.addActionListener(this);
 
       JLabel vaikeustasotitle = new JLabel("Vaikeustasot:");
+
       c.gridy = 3;
       c.gridx = 1;
       c.fill = GridBagConstraints.HORIZONTAL;
       c.anchor = GridBagConstraints.FIRST_LINE_START;
+      c.insets = new Insets(50, 0,0,0);
       newGameCard.add(vaikeustasotitle, c);
       c.gridx = 2;
       c.gridy = 3;
+      c.insets = new Insets(50, 10,0,0);
       newGameCard.add(helppo, c);
 
+      c.insets = new Insets(0, 10,0,0);
       c.gridy = 4;
       newGameCard.add(Keskivaikea, c);
-
+      c.ipady = 0;
       c.gridy = 5;
       newGameCard.add(Vaikea, c);
 
@@ -224,8 +232,10 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       c.weighty = 1;
       newGameCard.add(Mahdoton, c);
 
+      c.insets = new Insets(0, 0,0,0);
       c.gridx = 4;
       c.gridy = 10;
+      c.weightx = 1;
       c.fill = GridBagConstraints.LAST_LINE_END;
       c.anchor = GridBagConstraints.LAST_LINE_END;
       newGameCard.add(backButton, c);
