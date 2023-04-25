@@ -336,15 +336,21 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       bottomPanel.add(backButton, BorderLayout.LINE_END);
       playViewCard.add(bottomPanel, BorderLayout.PAGE_END);
 
+      addKeyboardButtonListeners(buttonPanel, Valittusana, labelList);
+
+      return playViewCard;
+   }
+
+   private void addKeyboardButtonListeners(JPanel buttonPanel, String word, List<JLabel> labelList) {
       // Add ActionListener to each button in the keyboardPanel
       for (Component c : buttonPanel.getComponents()) {
          if (c instanceof JButton) {
             ((JButton) c).addActionListener(e -> {
                String letter = ((JButton) c).getText();
                boolean letterFound = false;
-               for (int i = 0; i < Valittusana.length(); i++) {
-                  if (Valittusana.charAt(i) == letter.toLowerCase().charAt(0) ||
-                        Valittusana.charAt(i) == letter.toUpperCase().charAt(0)) {
+               for (int i = 0; i < word.length(); i++) {
+                  if (word.charAt(i) == letter.toLowerCase().charAt(0) ||
+                        word.charAt(i) == letter.toUpperCase().charAt(0)) {
                      labelList.get(i).setText(letter);
                      letterFound = true;
                      c.setBackground(Color.GREEN);
@@ -362,8 +368,6 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
             });
          }
       }
-
-      return playViewCard;
    }
   
   private List<JLabel> addUnderscoreLabels(String word, JPanel panel) {
