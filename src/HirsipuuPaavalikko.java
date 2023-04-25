@@ -11,6 +11,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
    private JPanel cardPanel, menuPanel;
    private CardLayout cardLayout;
    public JComboBox kategorialista;
+   private int incorrectGuess = 0;
 
    public HirsipuuPaavalikko() {
       setTitle("Hirsipuu");
@@ -343,6 +344,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
    private void addKeyboardButtonListeners(JPanel buttonPanel, String word, List<JLabel> labelList) {
       // Add ActionListener to each button in the keyboardPanel
+
       for (Component c : buttonPanel.getComponents()) {
          if (c instanceof JButton) {
             ((JButton) c).addActionListener(e -> {
@@ -359,8 +361,11 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
                }
                if (!letterFound) {
                   // Handle incorrect guess
-                  int incorrectGuess = 0;
                   incorrectGuess++;
+
+                  if(incorrectGuess >= 6){ // TODO: HARD CODED ATM, need to make it so it gets the radiobutton difficulty
+                     gameOver();
+                  }
 
                   c.setBackground(Color.GRAY);
                   c.setEnabled(false);
@@ -368,6 +373,11 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
             });
          }
       }
+   }
+
+   private void gameOver(){
+
+      JOptionPane.showMessageDialog(null, "HÄVISIT! Game Over!");
    }
   
   private List<JLabel> addUnderscoreLabels(String word, JPanel panel) {
