@@ -1,8 +1,10 @@
-package src;
+
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HirsipuuPaavalikko extends JFrame implements ActionListener {
    private JButton newGameButton, rulesButton, statsButton, exitButton;
@@ -296,6 +298,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       return statsCard;
    }
 
+
    private JPanel createPlayViewCard() {
       // Create the panel for the stats card
       JPanel playViewCard = new JPanel(new BorderLayout());
@@ -304,30 +307,70 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       HirsipuuHaeSana sananvalinta = new HirsipuuHaeSana();
       String Valittusana = sananvalinta.SanaTiedosto(kategorialista.getSelectedItem().toString());
 
-      System.out.println(Valittusana);
-      String[] words = { "Audi", "Mersu", "Toyota" };
-
       JLabel gameTitle = createTitleLabel("Hirsipuu");
       playViewCard.add(gameTitle, BorderLayout.NORTH);
-
-      // Generate a random word from the array
-      String randomWord = words[(int) (Math.random() * words.length)];
 
       // Create the panel for the hangman lines and word lines
       JPanel wordPanel = new JPanel();
       wordPanel.setLayout(new BoxLayout(wordPanel, BoxLayout.X_AXIS));
       wordPanel.add(Box.createHorizontalGlue()); // add glue to center wordPanel horizontally
 
-      // Add the labels for each letter in the random word
-      int wordLength = randomWord.length();
-      for (int i = 0; i < wordLength; i++) {
-         wordPanel.add(new JLabel("_ "));
-      }
+      int wordLength = Valittusana.length(); // Add the labels for each letter in the random word
+      List<JLabel> labelList = addUnderscoreLabels(Valittusana, wordPanel); // Add the labels for each letter in the
+                                                                            // random word
+
       wordPanel.add(Box.createHorizontalGlue()); // add glue to center wordPanel horizontally
 
       JPanel hangmanPanel = new JPanel(new BorderLayout());
       hangmanPanel.add(wordPanel, BorderLayout.CENTER);
 
+      JPanel buttonPanel = createKeyboardPanel();
+      JPanel wordAndBottomPanel = new JPanel(new BorderLayout());
+      wordAndBottomPanel.add(wordPanel, BorderLayout.CENTER);
+      wordAndBottomPanel.add(bottomPanel, BorderLayout.SOUTH);
+
+      hangmanPanel.add(wordAndBottomPanel, BorderLayout.CENTER);
+      hangmanPanel.add(buttonPanel, BorderLayout.SOUTH);
+
+      playViewCard.add(hangmanPanel, BorderLayout.CENTER);
+
+      bottomPanel.add(backButton, BorderLayout.LINE_END);
+      playViewCard.add(bottomPanel, BorderLayout.PAGE_END);
+
+      // Add ActionListener to each button in the keyboardPanel
+      for (Component c : buttonPanel.getComponents()) {
+         if (c instanceof JButton) {
+            ((JButton) c).addActionListener(e -> {
+               String letter = ((JButton) c).getText();
+               boolean letterFound = false;
+               for (int i = 0; i < Valittusana.length(); i++) {
+                  if (Valittusana.charAt(i) == letter.toLowerCase().charAt(0) ||
+                        Valittusana.charAt(i) == letter.toUpperCase().charAt(0)) {
+                     labelList.get(i).setText(letter);
+                     letterFound = true;
+                  }
+               }
+               if (!letterFound) {
+                  // Handle incorrect guess
+               }
+            });
+         }
+      }
+
+      return playViewCard;
+   }
+  
+  private List<JLabel> addUnderscoreLabels(String word, JPanel panel) {
+      List<JLabel> labelList = new ArrayList<>();
+      for (int i = 0; i < word.length(); i++) {
+          JLabel label = new JLabel("_ ");
+          panel.add(label);
+          labelList.add(label);
+      }
+      return labelList;
+  }
+
+   private JPanel createKeyboardPanel() {
       String row1 = "1234567890";
       String row2 = "QWERTYUIOPÅ";
       String row3 = "ASDFGHJKLÖÄ";
@@ -349,19 +392,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
          }
       }
 
-      JPanel wordAndBottomPanel = new JPanel(new BorderLayout());
-      wordAndBottomPanel.add(wordPanel, BorderLayout.CENTER);
-      wordAndBottomPanel.add(bottomPanel, BorderLayout.SOUTH);
-
-      hangmanPanel.add(wordAndBottomPanel, BorderLayout.CENTER);
-      hangmanPanel.add(buttonPanel, BorderLayout.SOUTH);
-
-      playViewCard.add(hangmanPanel, BorderLayout.CENTER);
-
-      bottomPanel.add(backButton, BorderLayout.LINE_END);
-      playViewCard.add(bottomPanel, BorderLayout.PAGE_END);
-
-      return playViewCard;
+      return buttonPanel;
    }
 
    @Override
