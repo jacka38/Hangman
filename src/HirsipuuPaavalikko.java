@@ -316,8 +316,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       wordPanel.add(Box.createHorizontalGlue()); // add glue to center wordPanel horizontally
 
       int wordLength = Valittusana.length(); // Add the labels for each letter in the random word
-      List<JLabel> labelList = addUnderscoreLabels(Valittusana, wordPanel); // Add the labels for each letter in the
-                                                                            // random word
+      List<JLabel> labelList = addUnderscoreLabels(Valittusana, wordPanel); // Add the labels for each letter in the random word
 
       wordPanel.add(Box.createHorizontalGlue()); // add glue to center wordPanel horizontally
 
@@ -348,10 +347,17 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
                         Valittusana.charAt(i) == letter.toUpperCase().charAt(0)) {
                      labelList.get(i).setText(letter);
                      letterFound = true;
+                     c.setBackground(Color.GREEN);
+                     c.setEnabled(false);
                   }
                }
                if (!letterFound) {
                   // Handle incorrect guess
+                  int incorrectGuess = 0;
+                  incorrectGuess++;
+
+                  c.setBackground(Color.GRAY);
+                  c.setEnabled(false);
                }
             });
          }
