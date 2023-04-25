@@ -1,4 +1,4 @@
-
+package src;
 
 import javax.swing.*;
 import java.awt.*;
@@ -101,7 +101,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       menuPanel.add(Box.createRigidArea(new Dimension(0, 10)));
 
       JLabel label = new JLabel();
-      Image img = new ImageIcon(this.getClass().getResource("hirsipuu1.gif")).getImage();
+      Image img = new ImageIcon(this.getClass().getResource("hirsipuu2.gif")).getImage();
       Image newImage = img.getScaledInstance(150, 150, Image.SCALE_DEFAULT);
       label.setIcon(new ImageIcon(newImage));
       label.setAlignmentX(Component.CENTER_ALIGNMENT);

@@ -10,6 +10,8 @@ import java.util.Random;
 
 
 public class HirsipuuHaeSana {
+    
+    final String[] Kategoriat = {"Maat", "Automerkit", "Jaskanseksifantasiat"};
 
     public HirsipuuHaeSana(){
 
@@ -18,6 +20,12 @@ public class HirsipuuHaeSana {
 
     public String SanaTiedosto(String file){
 
+
+        if(file.equals("Satunnainen")){
+            Random rand = new Random(System.currentTimeMillis());
+            int randomKategoria = rand.nextInt(Kategoriat.length);
+            file = Kategoriat[randomKategoria];
+        }
         String filename = "src/" + file + ".txt";
 
         List<String> sanat = new ArrayList<String>();
@@ -42,6 +50,7 @@ public class HirsipuuHaeSana {
 
         return randomWord;
 
-    }
+        
     
+    }
 }
