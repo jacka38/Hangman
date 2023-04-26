@@ -1,4 +1,4 @@
-
+package src;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +12,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
    private CardLayout cardLayout;
    public JComboBox kategorialista;
    private int incorrectGuess = 0;
+   public ButtonGroup group;
 
    public HirsipuuPaavalikko() {
       setTitle("Hirsipuu");
@@ -202,7 +203,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       JRadioButton Keskivaikea = peliasetukset.getKeskivaikea();
       JRadioButton Vaikea = peliasetukset.getVaikea();
       JRadioButton Mahdoton = peliasetukset.getMahdoton();
-      ButtonGroup group = new ButtonGroup();
+      group = new ButtonGroup();
       group.add(helppo);
       group.add(Keskivaikea);
       group.add(Vaikea);
@@ -345,6 +346,10 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
    private void addKeyboardButtonListeners(JPanel buttonPanel, String word, List<JLabel> labelList) {
       // Add ActionListener to each button in the keyboardPanel
 
+
+      HirsipuuArvaukset määrä = new HirsipuuArvaukset();
+      int arvaustenmäärä = määrä.valittuvaikeus(group);
+
       for (Component c : buttonPanel.getComponents()) {
          if (c instanceof JButton) {
             ((JButton) c).addActionListener(e -> {
@@ -363,7 +368,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
                   // Handle incorrect guess
                   incorrectGuess++;
 
-                  if(incorrectGuess >= 6){ // TODO: HARD CODED ATM, need to make it so it gets the radiobutton difficulty
+                  if(incorrectGuess > arvaustenmäärä){ // TODO: HARD CODED ATM, need to make it so it gets the radiobutton difficulty
                      gameOver();
                   }
 
@@ -381,17 +386,17 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       JDialog dialog = new JDialog();
       dialog.setUndecorated(true);
       dialog.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
-      dialog.setTitle("Game Over");
+      dialog.setTitle("Peli ohi");
       dialog.setModal(true);
       dialog.setResizable(false);
 
       JPanel messagePane = new JPanel();
-      JLabel messageLabel = new JLabel("HÄVISIT! Game Over!");
+      JLabel messageLabel = new JLabel("HÄVISIT! Peli ohi!");
       messagePane.add(messageLabel);
       dialog.add(messagePane, BorderLayout.CENTER);
 
       JPanel buttonPane = new JPanel();
-      JButton playAgainButton = new JButton("Play again");
+      JButton playAgainButton = new JButton("Pelaa uudestaan");
       playAgainButton.addActionListener(e -> {
          JPanel newGameCard = createNewGameCard();
          cardPanel.add(newGameCard, "createNewGameCard");
@@ -400,7 +405,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       });
       buttonPane.add(playAgainButton);
 
-      JButton mainMenuButton = new JButton("Return to main menu");
+      JButton mainMenuButton = new JButton("Palaa päävalikkoon");
       mainMenuButton.addActionListener(e -> {
          JPanel menuCard = createMenuCard();
          cardPanel.add(menuCard, "MainMenu");
