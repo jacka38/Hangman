@@ -12,6 +12,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
    private CardLayout cardLayout;
    public JComboBox kategorialista;
    private int incorrectGuess = 0;
+   private int correctGuess = 0;
    public ButtonGroup group;
 
    public HirsipuuPaavalikko() {
@@ -25,17 +26,6 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       // Center the frame on the screen
       setLocationRelativeTo(null);
 
-      /*
-       **** THIS IS BROKEN ATM, IT DOESNT RECENTER CORRECTLY WHEN COMING BACK TO MENU
-       * PAGE AND IS BUGGY****
-       * // Add a component listener to the frame to handle window resizing
-       * addComponentListener(new ComponentAdapter() {
-       * public void componentResized(ComponentEvent e) {
-       * // Center the buttons horizontally in the panel
-       * centerMenuButtons();
-       * }
-       * });
-       */
 
       // Make the frame visible
       setVisible(true);
@@ -63,7 +53,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
    private JPanel createMenuCard() {
       // Create the panel for the new game card
-      JPanel menuCard = new JPanel();
+      JPanel menuCard = new JPanel(new GridBagLayout());
 
       // Create the title label
       JLabel titleLabel = new JLabel("HANGMAN");
@@ -79,13 +69,9 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       // Set maximum size and alignment for buttons
       Dimension largestButtonSize = new Dimension(200, newGameButton.getPreferredSize().height);
       newGameButton.setMaximumSize(largestButtonSize);
-      newGameButton.setAlignmentX(Component.CENTER_ALIGNMENT);
       rulesButton.setMaximumSize(largestButtonSize);
-      rulesButton.setAlignmentX(Component.CENTER_ALIGNMENT);
       statsButton.setMaximumSize(largestButtonSize);
-      statsButton.setAlignmentX(Component.CENTER_ALIGNMENT);
       exitButton.setMaximumSize(largestButtonSize);
-      exitButton.setAlignmentX(Component.CENTER_ALIGNMENT);
 
       // Add action listeners to the buttons
       newGameButton.addActionListener(this);
@@ -95,35 +81,55 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
       // Create the panel for the menu card
       menuPanel = new JPanel();
-      menuPanel.setLayout(new BoxLayout(menuPanel, BoxLayout.Y_AXIS));
-      menuPanel.add(Box.createVerticalGlue()); // Add vertical glue to center the buttons
+      menuPanel.setLayout(new GridBagLayout());
+      GridBagConstraints c = new GridBagConstraints();  
 
-      menuPanel.add(titleLabel);
-      menuPanel.add(Box.createRigidArea(new Dimension(0, 10)));
+      c.anchor = GridBagConstraints.CENTER;
+      c.fill  = GridBagConstraints.HORIZONTAL;
+      c.insets = new Insets(10, 0,0,0);
+      c.gridx = 1;
+      c.gridy = 1;
+      c.weightx = 1;
+      c.weighty = 0;
+      menuPanel.add(titleLabel, c);
 
       JLabel label = new JLabel();
       Image img = new ImageIcon(this.getClass().getResource("hirsipuu2.gif")).getImage();
       Image newImage = img.getScaledInstance(150, 150, Image.SCALE_DEFAULT);
       label.setIcon(new ImageIcon(newImage));
-      label.setAlignmentX(Component.CENTER_ALIGNMENT);
-      menuPanel.add(label); // Add the label containing the gif to the menuPanel
+      c.insets = new Insets(10, 10,0,0);
+      c.weighty = 0;
+      c.gridy = 2;
+      menuPanel.add(label, c); // Add the label containing the gif to the menuPanel
 
-      menuPanel.add(newGameButton);
-      menuPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-
-      menuPanel.add(rulesButton);
-      menuPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-
-      menuPanel.add(statsButton);
-      menuPanel.add(Box.createRigidArea(new Dimension(0, 10)));
-
-      menuPanel.add(exitButton);
-      menuPanel.add(Box.createVerticalGlue()); // Add vertical glue to center the buttons
-
-      menuCard.add(menuPanel, BorderLayout.CENTER);
+      c.insets = new Insets(10, 0,0,0);
+      c.gridy = 3;
+      c.weightx = 0.5;
+      menuPanel.add(newGameButton, c);
+      
+      c.gridy = 4;
+      c.weightx = 0.5;
+      menuPanel.add(rulesButton, c);
+   
+      c.gridy = 5;
+      c.weightx = 0.5;
+      menuPanel.add(statsButton, c);
+     
+      c.gridy = 6;
+      c.weightx = 0.5;
+      c.weighty = 1;
+      menuPanel.add(exitButton, c);
+      
+      c = new GridBagConstraints();
+      c.gridheight = 2;
+      c.fill = GridBagConstraints.BOTH;
+      c.weightx = 0;
+      c.weighty = 0;
+      menuCard.add(menuPanel, c);
 
       return menuCard;
    }
+
 
    private JButton createBackButton() {
       // Create the back to main menu button
@@ -339,9 +345,49 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       playViewCard.add(bottomPanel, BorderLayout.PAGE_END);
 
       addKeyboardButtonListeners(buttonPanel, Valittusana, labelList);
+      
+      backButton.addActionListener(e -> {
+         showConfirmationDialog(playViewCard);
+      });
 
       return playViewCard;
    }
+
+   private void showConfirmationDialog(JPanel playViewCard) {
+      String[] options = {"Kyllä, Palaa Päävalikkoon", "En, jatka peliä"};
+      int confirmed = JOptionPane.showOptionDialog(playViewCard,
+              "Haluatko varmasti keskeyttää pelin ja palata takaisin päävalikkoon?",
+              "",
+              JOptionPane.YES_NO_OPTION,
+              JOptionPane.QUESTION_MESSAGE,
+              null,
+              options,
+              options[0]);
+  
+      if (confirmed == JOptionPane.YES_OPTION) {
+          JPanel menuCard = createMenuCard();
+          cardPanel.add(menuCard, "MainMenu");
+          cardLayout.show(cardPanel, "MainMenu");
+      } else if (confirmed == JOptionPane.NO_OPTION) {
+          JDialog dialog = (JDialog) JOptionPane.getRootFrame().getOwnedWindows()[0];
+          dialog.addWindowListener(new WindowAdapter() {
+              @Override
+              public void windowClosing(WindowEvent e) {
+                  JDialog dialog = (JDialog) e.getWindow();
+                  dialog.dispose();
+              }
+          });
+      } else if (confirmed == JOptionPane.CLOSED_OPTION) {
+          JDialog dialog = (JDialog) JOptionPane.getRootFrame().getOwnedWindows()[0];
+          dialog.addWindowListener(new WindowAdapter() {
+              @Override
+              public void windowClosing(WindowEvent e) {
+                  JDialog dialog = (JDialog) e.getWindow();
+                  dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+              }
+          });
+      }
+  }
 
    private void addKeyboardButtonListeners(JPanel buttonPanel, String word, List<JLabel> labelList) {
       // Add ActionListener to each button in the keyboardPanel
@@ -362,27 +408,76 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
                      letterFound = true;
                      c.setBackground(Color.GREEN);
                      c.setEnabled(false);
+
+                     correctGuess++;
                   }
                }
                if (!letterFound) {
                   // Handle incorrect guess
                   incorrectGuess++;
 
-                  if(incorrectGuess > arvaustenmäärä){ // TODO: HARD CODED ATM, need to make it so it gets the radiobutton difficulty
+                  if(incorrectGuess > arvaustenmäärä){
                      gameOver();
                   }
 
                   c.setBackground(Color.GRAY);
                   c.setEnabled(false);
+               }else {
+                  if(correctGuess == word.length()){
+                     gameWon();
+                  }
                }
             });
          }
       }
    }
 
+   private void gameWon() {
+
+      incorrectGuess = 0;
+      correctGuess = 0;
+      JDialog dialog = new JDialog();
+      dialog.setUndecorated(true);
+      dialog.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+      dialog.setTitle("Voitit pelin");
+      dialog.setModal(true);
+      dialog.setResizable(false);
+   
+      JPanel messagePane = new JPanel();
+      JLabel messageLabel = new JLabel("VOITIT! Game Won!");
+      messagePane.add(messageLabel);
+      dialog.add(messagePane, BorderLayout.CENTER);
+   
+      JPanel buttonPane = new JPanel();
+      JButton playAgainButton = new JButton("Pelaa uudelleen");
+      playAgainButton.addActionListener(e -> {
+         JPanel newGameCard = createNewGameCard();
+         cardPanel.add(newGameCard, "createNewGameCard");
+         cardLayout.show(cardPanel, "createNewGameCard");
+         dialog.dispose();
+      });
+      buttonPane.add(playAgainButton);
+   
+      JButton mainMenuButton = new JButton("Palaa päävalikkoon");
+      mainMenuButton.addActionListener(e -> {
+         JPanel menuCard = createMenuCard();
+         cardPanel.add(menuCard, "MainMenu");
+         cardLayout.show(cardPanel, "MainMenu");
+         dialog.dispose();
+      });
+      buttonPane.add(mainMenuButton);
+   
+      dialog.add(buttonPane, BorderLayout.SOUTH);
+      dialog.pack();
+      dialog.setLocationRelativeTo(null);
+      dialog.setVisible(true);
+   }
+
+
    private void gameOver() {
 
       incorrectGuess = 0;
+      correctGuess = 0;
       JDialog dialog = new JDialog();
       dialog.setUndecorated(true);
       dialog.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
@@ -396,7 +491,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       dialog.add(messagePane, BorderLayout.CENTER);
 
       JPanel buttonPane = new JPanel();
-      JButton playAgainButton = new JButton("Pelaa uudestaan");
+      JButton playAgainButton = new JButton("Pelaa uudelleen");
       playAgainButton.addActionListener(e -> {
          JPanel newGameCard = createNewGameCard();
          cardPanel.add(newGameCard, "createNewGameCard");
@@ -495,25 +590,5 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
             break;
       }
    }
-
-
-   
-
-   /*
-    **** THIS IS BROKEN ATM, IT DOESNT RECENTER CORRECTLY WHEN COMING BACK TO MENU
-    * PAGE AND IS BUGGY****
-    * private void centerMenuButtons() {
-    * //Center the menu when resizing
-    * Dimension contentPaneSize = getContentPane().getSize();
-    * Dimension buttonPanelSize = ((JPanel)
-    * getContentPane().getComponent(0)).getPreferredSize();
-    * 
-    * int buttonPanelY = (contentPaneSize.height - buttonPanelSize.height) / 2;
-    * 
-    * ((JPanel)
-    * getContentPane().getComponent(0)).setAlignmentY(Component.CENTER_ALIGNMENT);
-    * ((JPanel) getContentPane().getComponent(0)).setLocation(0, buttonPanelY);
-    * }
-    */
 
 }
