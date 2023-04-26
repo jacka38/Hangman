@@ -204,7 +204,8 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       kategorialista.addActionListener(this);
       newGameCard.add(kategorialista, c);
       
-
+      JLabel help = new JLabel(" ?");
+      help.setForeground(Color.MAGENTA);
       JRadioButton helppo = peliasetukset.getHelppo();
       JRadioButton Keskivaikea = peliasetukset.getKeskivaikea();
       JRadioButton Vaikea = peliasetukset.getVaikea();
@@ -219,23 +220,33 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       Vaikea.addActionListener(this);
       Mahdoton.addActionListener(this);
 
+      JPanel Vaikeustasotitle = new JPanel(new BorderLayout());
+
       JLabel vaikeustasotitle = new JLabel("Vaikeustasot:");
+      
+      Vaikeustasotitle.add(vaikeustasotitle, BorderLayout.LINE_START);
+
+
+      Vaikeustasotitle.setToolTipText("<html>" + "Vaikeustasot määrittävät arvaustenmäärän" + "<br>" + "Helppo = 7" + "<br>" + "Keskivaikea = 5" + "<br>" + "Vaikea = 3" + "<br>" + "Mahdoton = 1" + "</html>");
+      Vaikeustasotitle.add(help, BorderLayout.CENTER);
 
       c.gridy = 3;
       c.gridx = 1;
       c.fill = GridBagConstraints.HORIZONTAL;
       c.anchor = GridBagConstraints.FIRST_LINE_START;
       c.insets = new Insets(50, 0,0,0);
-      newGameCard.add(vaikeustasotitle, c);
+      newGameCard.add(Vaikeustasotitle, c);
+
+      
+
       c.gridx = 2;
       c.gridy = 3;
-      c.insets = new Insets(50, 10,0,0);
+      c.insets = new Insets(50, 30,0,0);
       newGameCard.add(helppo, c);
 
-      c.insets = new Insets(0, 10,0,0);
+      c.insets = new Insets(0, 30,0,0);
       c.gridy = 4;
       newGameCard.add(Keskivaikea, c);
-      c.ipady = 0;
       c.gridy = 5;
       newGameCard.add(Vaikea, c);
 

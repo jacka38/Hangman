@@ -11,10 +11,10 @@ public class HirsipuuPeliAsetukset { //Näkymä, josta valitaan asetukset pelill
 
     }
 
-    final JRadioButton helppo = new JRadioButton("Helppo");;
-    final JRadioButton Keskivaikea = new JRadioButton("Keskivaikea");;
-    final JRadioButton Vaikea  = new JRadioButton("Vaikea");;
-    final JRadioButton Mahdoton = new JRadioButton("Mahdoton"); ;
+    final JRadioButton helppo = new JRadioButton("Helppo");
+    final JRadioButton Keskivaikea = new JRadioButton("Keskivaikea");
+    final JRadioButton Vaikea  = new JRadioButton("Vaikea");
+    final JRadioButton Mahdoton = new JRadioButton("Mahdoton"); 
     
     public JComboBox LuoKategoriat(){
 
