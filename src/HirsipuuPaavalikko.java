@@ -375,10 +375,47 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       }
    }
 
-   private void gameOver(){
+   private void gameOver() {
 
-      JOptionPane.showMessageDialog(null, "HÄVISIT! Game Over!");
+      incorrectGuess = 0;
+      JDialog dialog = new JDialog();
+      dialog.setUndecorated(true);
+      dialog.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+      dialog.setTitle("Game Over");
+      dialog.setModal(true);
+      dialog.setResizable(false);
+
+      JPanel messagePane = new JPanel();
+      JLabel messageLabel = new JLabel("HÄVISIT! Game Over!");
+      messagePane.add(messageLabel);
+      dialog.add(messagePane, BorderLayout.CENTER);
+
+      JPanel buttonPane = new JPanel();
+      JButton playAgainButton = new JButton("Play again");
+      playAgainButton.addActionListener(e -> {
+         JPanel newGameCard = createNewGameCard();
+         cardPanel.add(newGameCard, "createNewGameCard");
+         cardLayout.show(cardPanel, "createNewGameCard");
+         dialog.dispose();
+      });
+      buttonPane.add(playAgainButton);
+
+      JButton mainMenuButton = new JButton("Return to main menu");
+      mainMenuButton.addActionListener(e -> {
+         JPanel menuCard = createMenuCard();
+         cardPanel.add(menuCard, "MainMenu");
+         cardLayout.show(cardPanel, "MainMenu");
+         dialog.dispose();
+      });
+      buttonPane.add(mainMenuButton);
+
+      dialog.add(buttonPane, BorderLayout.SOUTH);
+      dialog.pack();
+      dialog.setLocationRelativeTo(null);
+      dialog.setVisible(true);
    }
+  
+  
   
   private List<JLabel> addUnderscoreLabels(String word, JPanel panel) {
       List<JLabel> labelList = new ArrayList<>();
