@@ -1,4 +1,4 @@
-package src;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -382,8 +382,11 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
   
   private List<JLabel> addUnderscoreLabels(String word, JPanel panel) {
       List<JLabel> labelList = new ArrayList<>();
+      Font font = new Font("Arial", Font.BOLD, 24);
       for (int i = 0; i < word.length(); i++) {
           JLabel label = new JLabel("_ ");
+          label.setFont(font);
+          label.setHorizontalAlignment(SwingConstants.CENTER);
           panel.add(label);
           labelList.add(label);
       }
