@@ -325,44 +325,60 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       JButton backButton = createBackButton();
       HirsipuuHaeSana sananvalinta = new HirsipuuHaeSana();
       String Valittusana = sananvalinta.SanaTiedosto(kategorialista.getSelectedItem().toString());
-
+  
       JLabel gameTitle = createTitleLabel("Hirsipuu");
       playViewCard.add(gameTitle, BorderLayout.NORTH);
-
+  
       // Create the panel for the hangman lines and word lines
+      JPanel picturePanel = new JPanel(new BorderLayout());
+      JLabel imgLabel = new JLabel();
+      Image img = new ImageIcon(this.getClass().getResource("hangman1.png")).getImage();
+      Image newImage = img.getScaledInstance(250, 250, Image.SCALE_DEFAULT);
+      imgLabel.setIcon(new ImageIcon(newImage));
+      picturePanel.add(imgLabel, BorderLayout.CENTER);
+  
+      JPanel pictureContainer = new JPanel(new GridBagLayout());
+      GridBagConstraints c = new GridBagConstraints();
+      c.gridx = 0;
+      c.gridy = 0;
+      c.weightx = 1.0;
+      c.weighty = 1.0;
+      pictureContainer.add(picturePanel, c);
+  
       JPanel wordPanel = new JPanel();
       wordPanel.setLayout(new BoxLayout(wordPanel, BoxLayout.X_AXIS));
       wordPanel.add(Box.createHorizontalGlue()); // add glue to center wordPanel horizontally
-
+  
       int wordLength = Valittusana.length(); // Add the labels for each letter in the random word
       List<JLabel> labelList = addUnderscoreLabels(Valittusana, wordPanel); // Add the labels for each letter in the random word
-
+  
       wordPanel.add(Box.createHorizontalGlue()); // add glue to center wordPanel horizontally
-
+  
       JPanel hangmanPanel = new JPanel(new BorderLayout());
+      hangmanPanel.add(pictureContainer, BorderLayout.NORTH);
       hangmanPanel.add(wordPanel, BorderLayout.CENTER);
-
+  
       JPanel buttonPanel = createKeyboardPanel();
       JPanel wordAndBottomPanel = new JPanel(new BorderLayout());
       wordAndBottomPanel.add(wordPanel, BorderLayout.CENTER);
       wordAndBottomPanel.add(bottomPanel, BorderLayout.SOUTH);
-
+  
       hangmanPanel.add(wordAndBottomPanel, BorderLayout.CENTER);
       hangmanPanel.add(buttonPanel, BorderLayout.SOUTH);
-
+  
       playViewCard.add(hangmanPanel, BorderLayout.CENTER);
-
+  
       bottomPanel.add(backButton, BorderLayout.LINE_END);
       playViewCard.add(bottomPanel, BorderLayout.PAGE_END);
-
-      addKeyboardButtonListeners(buttonPanel, Valittusana, labelList);
-      
+  
+      addKeyboardButtonListeners(buttonPanel, Valittusana, labelList, imgLabel);
+  
       backButton.addActionListener(e -> {
-         showConfirmationDialog(playViewCard);
+          showConfirmationDialog(playViewCard);
       });
-
+  
       return playViewCard;
-   }
+  }
 
    private void showConfirmationDialog(JPanel playViewCard) {
       String[] options = {"Kyllä, Palaa Päävalikkoon", "En, jatka peliä"};
@@ -400,48 +416,63 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       }
   }
 
-   private void addKeyboardButtonListeners(JPanel buttonPanel, String word, List<JLabel> labelList) {
-      // Add ActionListener to each button in the keyboardPanel
+  private void addKeyboardButtonListeners(JPanel buttonPanel, String word, List<JLabel> labelList, JLabel imgLabel) {
+   // Add ActionListener to each button in the keyboardPanel
 
+   HirsipuuArvaukset määrä = new HirsipuuArvaukset();
+   int arvaustenmäärä = määrä.valittuvaikeus(group);
+   String[] imagePaths = { "hangman1.png", "hangman2.png", "hangman3.png", "hangman4.png",
+         "hangman5.png", "hangman6.png", "hangman7.png", "hangman8.png",
+         "hangman9.png", "hangman10.png", "hangman11.png", "hangman12.png" };
 
-      HirsipuuArvaukset määrä = new HirsipuuArvaukset();
-      int arvaustenmäärä = määrä.valittuvaikeus(group);
-
-      for (Component c : buttonPanel.getComponents()) {
-         if (c instanceof JButton) {
-            ((JButton) c).addActionListener(e -> {
-               String letter = ((JButton) c).getText();
-               boolean letterFound = false;
-               for (int i = 0; i < word.length(); i++) {
-                  if (word.charAt(i) == letter.toLowerCase().charAt(0) ||
-                        word.charAt(i) == letter.toUpperCase().charAt(0)) {
-                     labelList.get(i).setText(letter);
-                     letterFound = true;
-                     c.setBackground(Color.GREEN);
-                     c.setEnabled(false);
-
-                     correctGuess++;
-                  }
-               }
-               if (!letterFound) {
-                  // Handle incorrect guess
-                  incorrectGuess++;
-
-                  if(incorrectGuess > arvaustenmäärä){
-                     gameOver();
-                  }
-
-                  c.setBackground(Color.GRAY);
+   for (Component c : buttonPanel.getComponents()) {
+      if (c instanceof JButton) {
+         ((JButton) c).addActionListener(e -> {
+            String letter = ((JButton) c).getText();
+            boolean letterFound = false;
+            for (int i = 0; i < word.length(); i++) {
+               if (word.charAt(i) == letter.toLowerCase().charAt(0) ||
+                     word.charAt(i) == letter.toUpperCase().charAt(0)) {
+                  labelList.get(i).setText(letter);
+                  letterFound = true;
+                  c.setBackground(Color.GREEN);
                   c.setEnabled(false);
-               }else {
-                  if(correctGuess == word.length()){
-                     gameWon();
-                  }
+
+                  correctGuess++;
                }
-            });
-         }
+            }
+            if (!letterFound) {
+               // Handle incorrect guess
+               incorrectGuess++;
+
+               // Update the hangman picture
+               if (incorrectGuess <= imagePaths.length - 1) {
+                  Image img = new ImageIcon(this.getClass().getResource(imagePaths[incorrectGuess])).getImage();
+                  Image newImage = img.getScaledInstance(250, 250, Image.SCALE_DEFAULT);
+                  imgLabel.setIcon(new ImageIcon(newImage));
+               }
+
+               if (incorrectGuess > arvaustenmäärä) {
+                  // Update the hangman picture to the last one
+                  Image img = new ImageIcon(this.getClass().getResource(imagePaths[imagePaths.length - 1]))
+                        .getImage();
+                  Image newImage = img.getScaledInstance(250, 250, Image.SCALE_DEFAULT);
+                  imgLabel.setIcon(new ImageIcon(newImage));
+
+                  gameOver();
+               }
+
+               c.setBackground(Color.GRAY);
+               c.setEnabled(false);
+            } else {
+               if (correctGuess == word.length()) {
+                  gameWon();
+               }
+            }
+         });
       }
    }
+}
 
    private void gameWon() {
 
