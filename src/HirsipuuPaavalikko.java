@@ -1,4 +1,4 @@
-package src;
+
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,6 +13,8 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
    public JComboBox kategorialista;
    private int incorrectGuess = 0;
    private int correctGuess = 0;
+   private int points = 0;
+   private int guessesLeft;
    public ButtonGroup group;
 
    public HirsipuuPaavalikko() {
@@ -47,7 +49,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       cardLayout.show(cardPanel, "Menu");
 
       // Set the size and visibility of the JFrame
-      setSize(600, 500);
+      setSize(800, 600);
       setVisible(true);
    }
 
@@ -188,7 +190,6 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       c.weightx = 0;
       c.weighty = 0;
 
-
       newGameCard.add(categoryTitle, c);
 
       HirsipuuPeliAsetukset peliasetukset = new HirsipuuPeliAsetukset();
@@ -203,7 +204,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       c.weighty = 0;
       kategorialista.addActionListener(this);
       newGameCard.add(kategorialista, c);
-      
+
       JLabel help = new JLabel(" ?");
       help.setForeground(Color.MAGENTA);
       JRadioButton helppo = peliasetukset.getHelppo();
@@ -223,28 +224,26 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       JPanel Vaikeustasotitle = new JPanel(new BorderLayout());
 
       JLabel vaikeustasotitle = new JLabel("Vaikeustasot:");
-      
+
       Vaikeustasotitle.add(vaikeustasotitle, BorderLayout.LINE_START);
 
-
-      Vaikeustasotitle.setToolTipText("<html>" + "Vaikeustasot määrittävät arvaustenmäärän" + "<br>" + "Helppo = 7" + "<br>" + "Keskivaikea = 5" + "<br>" + "Vaikea = 3" + "<br>" + "Mahdoton = 1" + "</html>");
+      Vaikeustasotitle.setToolTipText("<html>" + "Vaikeustasot määrittävät arvaustenmäärän" + "<br>" + "Helppo = 7"
+            + "<br>" + "Keskivaikea = 5" + "<br>" + "Vaikea = 3" + "<br>" + "Mahdoton = 1" + "</html>");
       Vaikeustasotitle.add(help, BorderLayout.CENTER);
 
       c.gridy = 3;
       c.gridx = 1;
       c.fill = GridBagConstraints.HORIZONTAL;
       c.anchor = GridBagConstraints.FIRST_LINE_START;
-      c.insets = new Insets(50, 0,0,0);
+      c.insets = new Insets(50, 0, 0, 0);
       newGameCard.add(Vaikeustasotitle, c);
-
-      
 
       c.gridx = 2;
       c.gridy = 3;
-      c.insets = new Insets(50, 30,0,0);
+      c.insets = new Insets(50, 30, 0, 0);
       newGameCard.add(helppo, c);
 
-      c.insets = new Insets(0, 30,0,0);
+      c.insets = new Insets(0, 30, 0, 0);
       c.gridy = 4;
       newGameCard.add(Keskivaikea, c);
       c.gridy = 5;
@@ -254,7 +253,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       c.weighty = 1;
       newGameCard.add(Mahdoton, c);
 
-      c.insets = new Insets(0, 0,0,0);
+      c.insets = new Insets(0, 0, 0, 0);
       c.gridx = 4;
       c.gridy = 10;
       c.weightx = 1;
@@ -289,7 +288,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       JTextArea rulesTextArea = new JTextArea(rules);
       rulesTextArea.setEditable(false);
       rulesTextArea.setBackground(getBackground());
-      rulesTextArea.setFont(new Font("SansSerif", Font.PLAIN, 12));
+      rulesTextArea.setFont(new Font("SansSerif", Font.PLAIN, 14));
 
       // Put the text area inside a scroll pane
       JScrollPane scrollPane = new JScrollPane(rulesTextArea);
@@ -319,24 +318,48 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
 
    private JPanel createPlayViewCard() {
+      incorrectGuess = 0;
+      correctGuess = 0;
+      points = 0;
       // Create the panel for the stats card
       JPanel playViewCard = new JPanel(new BorderLayout());
       JPanel bottomPanel = new JPanel(new BorderLayout());
       JButton backButton = createBackButton();
       HirsipuuHaeSana sananvalinta = new HirsipuuHaeSana();
       String Valittusana = sananvalinta.SanaTiedosto(kategorialista.getSelectedItem().toString());
-  
+
       JLabel gameTitle = createTitleLabel("Hirsipuu");
       playViewCard.add(gameTitle, BorderLayout.NORTH);
-  
+
       // Create the panel for the hangman lines and word lines
       JPanel picturePanel = new JPanel(new BorderLayout());
       JLabel imgLabel = new JLabel();
-      Image img = new ImageIcon(this.getClass().getResource("hangman1.png")).getImage();
+      Image img = new ImageIcon(this.getClass().getResource("hirsipuu2.gif")).getImage();
       Image newImage = img.getScaledInstance(250, 250, Image.SCALE_DEFAULT);
       imgLabel.setIcon(new ImageIcon(newImage));
       picturePanel.add(imgLabel, BorderLayout.CENTER);
-  
+
+      // Create the points counter label and add it to the left of the hangman image
+      JLabel pointsLabel = new JLabel("Pisteet: 0");
+      pointsLabel.setFont(new Font("Arial", Font.BOLD, 14));
+      pointsLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 0, 10));
+
+      HirsipuuArvaukset määrä = new HirsipuuArvaukset();
+      int arvaustenmäärä = määrä.valittuvaikeus(group);
+      JLabel guessesLeftLabel = new JLabel("Yrityksiä jäljellä: " + arvaustenmäärä);
+      guessesLeftLabel.setFont(new Font("Arial", Font.BOLD, 14));
+      guessesLeftLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+
+      // Create a JPanel that contains the pointsLabel and guessesLeftLabel
+      JPanel scorePanel = new JPanel(new GridLayout(2, 1, 0, 10));
+      scorePanel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+      scorePanel.add(pointsLabel);
+      scorePanel.add(guessesLeftLabel);
+
+      JPanel gameInfo = new JPanel(new BorderLayout());
+      gameInfo.add(scorePanel, BorderLayout.WEST);
+      playViewCard.add(gameInfo, BorderLayout.NORTH);
+
       JPanel pictureContainer = new JPanel(new GridBagLayout());
       GridBagConstraints c = new GridBagConstraints();
       c.gridx = 0;
@@ -344,41 +367,41 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       c.weightx = 1.0;
       c.weighty = 1.0;
       pictureContainer.add(picturePanel, c);
-  
+
       JPanel wordPanel = new JPanel();
       wordPanel.setLayout(new BoxLayout(wordPanel, BoxLayout.X_AXIS));
       wordPanel.add(Box.createHorizontalGlue()); // add glue to center wordPanel horizontally
-  
+
       int wordLength = Valittusana.length(); // Add the labels for each letter in the random word
       List<JLabel> labelList = addUnderscoreLabels(Valittusana, wordPanel); // Add the labels for each letter in the random word
-  
+
       wordPanel.add(Box.createHorizontalGlue()); // add glue to center wordPanel horizontally
-  
+
       JPanel hangmanPanel = new JPanel(new BorderLayout());
       hangmanPanel.add(pictureContainer, BorderLayout.NORTH);
       hangmanPanel.add(wordPanel, BorderLayout.CENTER);
-  
+
       JPanel buttonPanel = createKeyboardPanel();
       JPanel wordAndBottomPanel = new JPanel(new BorderLayout());
       wordAndBottomPanel.add(wordPanel, BorderLayout.CENTER);
       wordAndBottomPanel.add(bottomPanel, BorderLayout.SOUTH);
-  
+
       hangmanPanel.add(wordAndBottomPanel, BorderLayout.CENTER);
       hangmanPanel.add(buttonPanel, BorderLayout.SOUTH);
-  
+
       playViewCard.add(hangmanPanel, BorderLayout.CENTER);
-  
+
       bottomPanel.add(backButton, BorderLayout.LINE_END);
       playViewCard.add(bottomPanel, BorderLayout.PAGE_END);
-  
-      addKeyboardButtonListeners(buttonPanel, Valittusana, labelList, imgLabel);
-  
+
+      addKeyboardButtonListeners(buttonPanel, Valittusana, labelList, imgLabel, pointsLabel, guessesLeftLabel);
+
       backButton.addActionListener(e -> {
-          showConfirmationDialog(playViewCard);
+         showConfirmationDialog(playViewCard);
       });
-  
+
       return playViewCard;
-  }
+   }
 
    private void showConfirmationDialog(JPanel playViewCard) {
       String[] options = {"Kyllä, Palaa Päävalikkoon", "En, jatka peliä"};
@@ -416,68 +439,78 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       }
   }
 
-  private void addKeyboardButtonListeners(JPanel buttonPanel, String word, List<JLabel> labelList, JLabel imgLabel) {
-   // Add ActionListener to each button in the keyboardPanel
+  private void addKeyboardButtonListeners(JPanel buttonPanel, String word, List<JLabel> labelList, JLabel imgLabel, JLabel pointsLabel, JLabel guessesLeftLabel) {
+     // Add ActionListener to each button in the keyboardPanel
 
-   HirsipuuArvaukset määrä = new HirsipuuArvaukset();
-   int arvaustenmäärä = määrä.valittuvaikeus(group);
-   String[] imagePaths = { "hangman1.png", "hangman2.png", "hangman3.png", "hangman4.png",
-         "hangman5.png", "hangman6.png", "hangman7.png", "hangman8.png",
-         "hangman9.png", "hangman10.png", "hangman11.png", "hangman12.png" };
+     HirsipuuArvaukset määrä = new HirsipuuArvaukset();
+     int arvaustenmäärä = määrä.valittuvaikeus(group);
+     String[] imagePaths = { "hangman1.png", "hangman2.png", "hangman3.png", "hangman4.png",
+           "hangman5.png", "hangman6.png", "hangman7.png", "hangman8.png",
+           "hangman9.png", "hangman10.png", "hangman11.png", "hangman12.png" };
 
-   for (Component c : buttonPanel.getComponents()) {
-      if (c instanceof JButton) {
-         ((JButton) c).addActionListener(e -> {
-            String letter = ((JButton) c).getText();
-            boolean letterFound = false;
-            for (int i = 0; i < word.length(); i++) {
-               if (word.charAt(i) == letter.toLowerCase().charAt(0) ||
-                     word.charAt(i) == letter.toUpperCase().charAt(0)) {
-                  labelList.get(i).setText(letter);
-                  letterFound = true;
-                  c.setBackground(Color.GREEN);
-                  c.setEnabled(false);
+     for (Component c : buttonPanel.getComponents()) {
+        if (c instanceof JButton) {
+           ((JButton) c).addActionListener(e -> {
+              String letter = ((JButton) c).getText();
+              boolean letterFound = false;
+              for (int i = 0; i < word.length(); i++) {
+                 if (word.charAt(i) == letter.toLowerCase().charAt(0) ||
+                       word.charAt(i) == letter.toUpperCase().charAt(0)) {
+                    labelList.get(i).setText(letter);
+                    letterFound = true;
+                    points += 5;
+                    c.setBackground(Color.GREEN);
+                    c.setEnabled(false);
 
-                  correctGuess++;
-               }
-            }
-            if (!letterFound) {
-               // Handle incorrect guess
-               incorrectGuess++;
+                    pointsLabel.setText("Pisteet: " + points);
+                    guessesLeft = arvaustenmäärä - incorrectGuess;
+                    guessesLeftLabel.setText("Yrityksiä jäljellä: " + guessesLeft);
+                    correctGuess++;
+                 }
+              }
+              if (!letterFound) {
+                 // Handle incorrect guess
+                 points = Math.max(points - 2, 0); // remove 2 points for an incorrect guess but keep the points >= 0
+                 incorrectGuess++;
+                 guessesLeft = arvaustenmäärä - incorrectGuess;
 
-               // Update the hangman picture
-               if (incorrectGuess <= imagePaths.length - 1) {
-                  Image img = new ImageIcon(this.getClass().getResource(imagePaths[incorrectGuess])).getImage();
-                  Image newImage = img.getScaledInstance(250, 250, Image.SCALE_DEFAULT);
-                  imgLabel.setIcon(new ImageIcon(newImage));
-               }
+                 // Update the hangman picture
+                 int imageIndex = (incorrectGuess - 1) * (imagePaths.length - 1) / arvaustenmäärä;
+                 if (imageIndex < imagePaths.length - 1) {
+                    Image img = new ImageIcon(this.getClass().getResource(imagePaths[imageIndex])).getImage();
+                    Image newImage = img.getScaledInstance(250, 250, Image.SCALE_DEFAULT);
+                    imgLabel.setIcon(new ImageIcon(newImage));
+                 }
 
-               if (incorrectGuess > arvaustenmäärä) {
-                  // Update the hangman picture to the last one
-                  Image img = new ImageIcon(this.getClass().getResource(imagePaths[imagePaths.length - 1]))
-                        .getImage();
-                  Image newImage = img.getScaledInstance(250, 250, Image.SCALE_DEFAULT);
-                  imgLabel.setIcon(new ImageIcon(newImage));
+                 if (incorrectGuess > arvaustenmäärä) {
+                    // Update the hangman picture to the last one
+                    Image img = new ImageIcon(this.getClass().getResource(imagePaths[imagePaths.length - 1]))
+                          .getImage();
+                    Image newImage = img.getScaledInstance(250, 250, Image.SCALE_DEFAULT);
+                    imgLabel.setIcon(new ImageIcon(newImage));
 
-                  gameOver();
-               }
+                    gameOver();
+                 }
 
-               c.setBackground(Color.GRAY);
-               c.setEnabled(false);
-            } else {
-               if (correctGuess == word.length()) {
-                  gameWon();
-               }
-            }
-         });
-      }
-   }
-}
+                 pointsLabel.setText("Pisteet: " + points);
+                 guessesLeftLabel.setText("Yrityksiä jäljellä: " + guessesLeft);
+                 c.setBackground(Color.GRAY);
+                 c.setEnabled(false);
+              } else {
+                 if (correctGuess == word.length()) {
+                    gameWon();
+                 }
+              }
+           });
+        }
+     }
+  }
 
    private void gameWon() {
 
       incorrectGuess = 0;
       correctGuess = 0;
+      
       JDialog dialog = new JDialog();
       dialog.setUndecorated(true);
       dialog.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
@@ -486,10 +519,11 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       dialog.setResizable(false);
    
       JPanel messagePane = new JPanel();
-      JLabel messageLabel = new JLabel("VOITIT! Game Won!");
+      JLabel messageLabel = new JLabel("VOITIT! Sinulla oli " + points + " pistettä");
       messagePane.add(messageLabel);
       dialog.add(messagePane, BorderLayout.CENTER);
-   
+      points = 0; // reset points for future games
+
       JPanel buttonPane = new JPanel();
       JButton playAgainButton = new JButton("Pelaa uudelleen");
       playAgainButton.addActionListener(e -> {
@@ -520,6 +554,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
       incorrectGuess = 0;
       correctGuess = 0;
+      points = 0;
       JDialog dialog = new JDialog();
       dialog.setUndecorated(true);
       dialog.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
@@ -558,12 +593,17 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
    }
   
   
-  
-  private List<JLabel> addUnderscoreLabels(String word, JPanel panel) {
+   private List<JLabel> addUnderscoreLabels(String word, JPanel panel) {
       List<JLabel> labelList = new ArrayList<>();
       Font font = new Font("Arial", Font.BOLD, 24);
       for (int i = 0; i < word.length(); i++) {
-          JLabel label = new JLabel("_ ");
+          char c = word.charAt(i);
+          JLabel label;
+          if (c == ' ') {
+              label = new JLabel(" ");
+          } else {
+              label = new JLabel("_ ");
+          }
           label.setFont(font);
           label.setHorizontalAlignment(SwingConstants.CENTER);
           panel.add(label);
