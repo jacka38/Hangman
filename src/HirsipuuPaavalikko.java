@@ -1,4 +1,4 @@
-
+package src;
 
 import javax.swing.*;
 import java.awt.*;
@@ -334,8 +334,8 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       // Create the panel for the hangman lines and word lines
       JPanel picturePanel = new JPanel(new BorderLayout());
       JLabel imgLabel = new JLabel();
-      Image img = new ImageIcon(this.getClass().getResource("hirsipuu2.gif")).getImage();
-      Image newImage = img.getScaledInstance(250, 250, Image.SCALE_DEFAULT);
+      Image img = new ImageIcon(this.getClass().getResource("HirsipuuKuvat/BaseTemplate.png")).getImage();
+      Image newImage = img.getScaledInstance(600, -1, Image.SCALE_DEFAULT);
       imgLabel.setIcon(new ImageIcon(newImage));
       picturePanel.add(imgLabel, BorderLayout.CENTER);
 
@@ -444,9 +444,9 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
      HirsipuuArvaukset määrä = new HirsipuuArvaukset();
      int arvaustenmäärä = määrä.valittuvaikeus(group);
-     String[] imagePaths = { "hangman1.png", "hangman2.png", "hangman3.png", "hangman4.png",
-           "hangman5.png", "hangman6.png", "hangman7.png", "hangman8.png",
-           "hangman9.png", "hangman10.png", "hangman11.png", "hangman12.png" };
+     String[] imagePaths = { "HirsipuuKuvat/Hangman1.png", "HirsipuuKuvat/Hangman2.png", "HirsipuuKuvat/Hangman3.png", "HirsipuuKuvat/Hangman4.png",
+           "HirsipuuKuvat/Hangman5.png", "HirsipuuKuvat/Hangman6.png", "HirsipuuKuvat/Hangman7.png", "HirsipuuKuvat/Hangman8.png",
+           "HirsipuuKuvat/Hangman9.png", "HirsipuuKuvat/Hangman10.png", "HirsipuuKuvat/Hangman11.png", "HirsipuuKuvat/Hangman12.png" };
 
      for (Component c : buttonPanel.getComponents()) {
         if (c instanceof JButton) {
@@ -478,7 +478,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
                  int imageIndex = (incorrectGuess - 1) * (imagePaths.length - 1) / arvaustenmäärä;
                  if (imageIndex < imagePaths.length - 1) {
                     Image img = new ImageIcon(this.getClass().getResource(imagePaths[imageIndex])).getImage();
-                    Image newImage = img.getScaledInstance(250, 250, Image.SCALE_DEFAULT);
+                    Image newImage = img.getScaledInstance(600, -1, Image.SCALE_DEFAULT);
                     imgLabel.setIcon(new ImageIcon(newImage));
                  }
 
@@ -486,7 +486,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
                     // Update the hangman picture to the last one
                     Image img = new ImageIcon(this.getClass().getResource(imagePaths[imagePaths.length - 1]))
                           .getImage();
-                    Image newImage = img.getScaledInstance(250, 250, Image.SCALE_DEFAULT);
+                    Image newImage = img.getScaledInstance(600, -1, Image.SCALE_DEFAULT);
                     imgLabel.setIcon(new ImageIcon(newImage));
 
                     gameOver();
