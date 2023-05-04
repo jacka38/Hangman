@@ -1,8 +1,10 @@
 package src;
 
 import java.io.BufferedReader;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class HirsipuuSäännöt{
 
@@ -19,7 +21,7 @@ public class HirsipuuSäännöt{
 
 
         StringBuilder rules = new StringBuilder();
-        try(BufferedReader reader = new BufferedReader(new FileReader("src/Testi123.txt"))){
+        try(BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/Testi123.txt"), "UTF-8"))){
             String line; 
             while((line = reader.readLine()) != null){
                 rules.append(line).append("\n");
