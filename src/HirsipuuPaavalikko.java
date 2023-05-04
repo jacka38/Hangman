@@ -579,6 +579,9 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       Tilastot tilastot = new Tilastot();
       tilastot.setFileTilastot();
       tilastot.writeLastGame(points, word, kategorialista, group, incorrectGuess+correctGuess);
+      Sound win = new Sound();
+      win.setWinsound();
+      win.play();
 
 
       incorrectGuess = 0;
@@ -621,6 +624,12 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       dialog.pack();
       dialog.setLocationRelativeTo(null);
       dialog.setVisible(true);
+      try{
+         win.stop();
+      }
+      catch(Exception e){
+
+      }
    }
 
 

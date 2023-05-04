@@ -24,11 +24,26 @@ public class Sound {
             sound = AudioSystem.getAudioInputStream(file);
             clip = AudioSystem.getClip();
             clip.open(sound);
+            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(-15.0f);
         }catch(Exception e){
   
         }
      }
 
+     public void setWinsound(){
+        try{
+  
+            File file = new File("src/win.wav");
+            sound = AudioSystem.getAudioInputStream(file);
+            clip = AudioSystem.getClip();
+            clip.open(sound);
+            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+            gainControl.setValue(-20.0f);
+        }catch(Exception e){
+  
+        }
+     }
      public void play() {
         clip.start();
     }
