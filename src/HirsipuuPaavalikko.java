@@ -6,6 +6,7 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class HirsipuuPaavalikko extends JFrame implements ActionListener {
    private JButton newGameButton, rulesButton, statsButton, exitButton;
    private JPanel cardPanel, menuPanel;
@@ -15,6 +16,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
    private int correctGuess = 0;
    private int points = 0;
    private int guessesLeft;
+   private String word;
    public ButtonGroup group;
 
    public HirsipuuPaavalikko() {
@@ -327,6 +329,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       JButton backButton = createBackButton();
       HirsipuuHaeSana sananvalinta = new HirsipuuHaeSana();
       String Valittusana = sananvalinta.SanaTiedosto(kategorialista.getSelectedItem().toString());
+      word = Valittusana;
 
       JLabel gameTitle = createTitleLabel("Hirsipuu");
       playViewCard.add(gameTitle, BorderLayout.NORTH);
@@ -335,8 +338,31 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       JPanel picturePanel = new JPanel(new BorderLayout());
       JLabel imgLabel = new JLabel();
       Image img = new ImageIcon(this.getClass().getResource("HirsipuuKuvat/BaseTemplate.png")).getImage();
-      Image newImage = img.getScaledInstance(600, -1, Image.SCALE_DEFAULT);
+      int leveys = getWidth()- 200;
+      Image newImage = img.getScaledInstance(leveys , -1, Image.SCALE_FAST);
+      
       imgLabel.setIcon(new ImageIcon(newImage));
+
+      cardPanel.addComponentListener(new ComponentListener() {
+         public void componentResized(ComponentEvent e){
+            int leveys = getWidth() -200;
+            Image newImage = img.getScaledInstance(leveys, -1, Image.SCALE_FAST);
+            imgLabel.setIcon(new ImageIcon(newImage));
+         }
+         @Override
+         public void componentMoved(ComponentEvent e) {
+        
+         }
+
+         @Override
+         public void componentShown(ComponentEvent e) {
+          
+         }
+
+         @Override
+         public void componentHidden(ComponentEvent e) {
+         }
+      });
       picturePanel.add(imgLabel, BorderLayout.CENTER);
 
       // Create the points counter label and add it to the left of the hangman image
@@ -478,7 +504,28 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
                  int imageIndex = (incorrectGuess - 1) * (imagePaths.length - 1) / arvaustenmäärä;
                  if (imageIndex < imagePaths.length - 1) {
                     Image img = new ImageIcon(this.getClass().getResource(imagePaths[imageIndex])).getImage();
-                    Image newImage = img.getScaledInstance(600, -1, Image.SCALE_DEFAULT);
+                    int leveys = getWidth() - 200;
+                    Image newImage = img.getScaledInstance(leveys, -1, Image.SCALE_FAST);
+                    cardPanel.addComponentListener(new ComponentListener() {
+                     public void componentResized(ComponentEvent e){
+                        int leveys = getWidth() -200;
+                        Image newImage = img.getScaledInstance(leveys, -1, Image.SCALE_FAST);
+                        imgLabel.setIcon(new ImageIcon(newImage));
+                     }
+                     @Override
+                     public void componentMoved(ComponentEvent e) {
+                    
+                     }
+            
+                     @Override
+                     public void componentShown(ComponentEvent e) {
+                      
+                     }
+            
+                     @Override
+                     public void componentHidden(ComponentEvent e) {
+                     }
+                  });
                     imgLabel.setIcon(new ImageIcon(newImage));
                  }
 
@@ -486,7 +533,28 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
                     // Update the hangman picture to the last one
                     Image img = new ImageIcon(this.getClass().getResource(imagePaths[imagePaths.length - 1]))
                           .getImage();
-                    Image newImage = img.getScaledInstance(600, -1, Image.SCALE_DEFAULT);
+                    int leveys = getWidth() - 200;
+                    Image newImage = img.getScaledInstance(leveys, -1, Image.SCALE_FAST);
+                    cardPanel.addComponentListener(new ComponentListener() {
+                     public void componentResized(ComponentEvent e){
+                        int leveys = getWidth() -200;
+                        Image newImage = img.getScaledInstance(leveys, -1, Image.SCALE_FAST);
+                        imgLabel.setIcon(new ImageIcon(newImage));
+                     }
+                     @Override
+                     public void componentMoved(ComponentEvent e) {
+                    
+                     }
+            
+                     @Override
+                     public void componentShown(ComponentEvent e) {
+                      
+                     }
+            
+                     @Override
+                     public void componentHidden(ComponentEvent e) {
+                     }
+                  });
                     imgLabel.setIcon(new ImageIcon(newImage));
 
                     gameOver();
@@ -508,8 +576,14 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
    private void gameWon() {
 
+      Tilastot tilastot = new Tilastot();
+      tilastot.setFileTilastot();
+      tilastot.writeLastGame(points, word, kategorialista, group, incorrectGuess+correctGuess);
+
+
       incorrectGuess = 0;
       correctGuess = 0;
+     
       
       JDialog dialog = new JDialog();
       dialog.setUndecorated(true);
@@ -555,6 +629,11 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       incorrectGuess = 0;
       correctGuess = 0;
       points = 0;
+   
+      Sound dead = new Sound();
+      dead.setSound();
+      dead.play();
+
       JDialog dialog = new JDialog();
       dialog.setUndecorated(true);
       dialog.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
@@ -590,6 +669,12 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       dialog.pack();
       dialog.setLocationRelativeTo(null);
       dialog.setVisible(true);
+      try{
+         dead.stop();
+      }
+      catch(Exception e){
+
+      }
    }
   
   
@@ -636,6 +721,8 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
       return buttonPanel;
    }
+
+
 
    @Override
    public void actionPerformed(ActionEvent e) {
