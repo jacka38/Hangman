@@ -6,10 +6,10 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class HirsipuuPaavalikko extends JFrame implements ActionListener {
+
    private JButton newGameButton, rulesButton, statsButton, exitButton;
-   private JPanel cardPanel, menuPanel;
+   private JPanel cardPanel;
    private CardLayout cardLayout;
    public JComboBox kategorialista;
    private int incorrectGuess = 0;
@@ -29,7 +29,6 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
       // Center the frame on the screen
       setLocationRelativeTo(null);
-
 
       // Make the frame visible
       setVisible(true);
@@ -84,13 +83,13 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       exitButton.addActionListener(this);
 
       // Create the panel for the menu card
-      menuPanel = new JPanel();
+      JPanel menuPanel = new JPanel();
       menuPanel.setLayout(new GridBagLayout());
-      GridBagConstraints c = new GridBagConstraints();  
+      GridBagConstraints c = new GridBagConstraints();
 
       c.anchor = GridBagConstraints.CENTER;
-      c.fill  = GridBagConstraints.HORIZONTAL;
-      c.insets = new Insets(10, 0,0,0);
+      c.fill = GridBagConstraints.HORIZONTAL;
+      c.insets = new Insets(10, 0, 0, 0);
       c.gridx = 1;
       c.gridy = 1;
       c.weightx = 1;
@@ -101,29 +100,29 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       Image img = new ImageIcon(this.getClass().getResource("hirsipuu2.gif")).getImage();
       Image newImage = img.getScaledInstance(150, 150, Image.SCALE_DEFAULT);
       label.setIcon(new ImageIcon(newImage));
-      c.insets = new Insets(10, 10,0,0);
+      c.insets = new Insets(10, 10, 0, 0);
       c.weighty = 0;
       c.gridy = 2;
       menuPanel.add(label, c); // Add the label containing the gif to the menuPanel
 
-      c.insets = new Insets(10, 0,0,0);
+      c.insets = new Insets(10, 0, 0, 0);
       c.gridy = 3;
       c.weightx = 0.5;
       menuPanel.add(newGameButton, c);
-      
+
       c.gridy = 4;
       c.weightx = 0.5;
       menuPanel.add(rulesButton, c);
-   
+
       c.gridy = 5;
       c.weightx = 0.5;
       menuPanel.add(statsButton, c);
-     
+
       c.gridy = 6;
       c.weightx = 0.5;
       c.weighty = 1;
       menuPanel.add(exitButton, c);
-      
+
       c = new GridBagConstraints();
       c.gridheight = 2;
       c.fill = GridBagConstraints.BOTH;
@@ -133,7 +132,6 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
       return menuCard;
    }
-
 
    private JButton createBackButton() {
       // Create the back to main menu button
@@ -223,22 +221,21 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       Vaikea.addActionListener(this);
       Mahdoton.addActionListener(this);
 
-      JPanel Vaikeustasotitle = new JPanel(new BorderLayout());
+      JPanel difficultyTitle = new JPanel(new BorderLayout());
+      JLabel difficultyLabel = new JLabel("Vaikeustasot:");
 
-      JLabel vaikeustasotitle = new JLabel("Vaikeustasot:");
+      difficultyTitle.add(difficultyLabel, BorderLayout.LINE_START);
 
-      Vaikeustasotitle.add(vaikeustasotitle, BorderLayout.LINE_START);
-
-      Vaikeustasotitle.setToolTipText("<html>" + "Vaikeustasot määrittävät arvaustenmäärän" + "<br>" + "Helppo = 7"
+      difficultyTitle.setToolTipText("<html>" + "Vaikeustasot määrittävät arvaustenmäärän" + "<br>" + "Helppo = 7"
             + "<br>" + "Keskivaikea = 5" + "<br>" + "Vaikea = 3" + "<br>" + "Mahdoton = 1" + "</html>");
-      Vaikeustasotitle.add(help, BorderLayout.CENTER);
+      difficultyTitle.add(help, BorderLayout.CENTER);
 
       c.gridy = 3;
       c.gridx = 1;
       c.fill = GridBagConstraints.HORIZONTAL;
       c.anchor = GridBagConstraints.FIRST_LINE_START;
       c.insets = new Insets(50, 0, 0, 0);
-      newGameCard.add(Vaikeustasotitle, c);
+      newGameCard.add(difficultyTitle, c);
 
       c.gridx = 2;
       c.gridy = 3;
@@ -318,7 +315,6 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       return statsCard;
    }
 
-
    private JPanel createPlayViewCard() {
       incorrectGuess = 0;
       correctGuess = 0;
@@ -338,30 +334,30 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       JPanel picturePanel = new JPanel(new BorderLayout());
       JLabel imgLabel = new JLabel();
       Image img = new ImageIcon(this.getClass().getResource("HirsipuuKuvat/BaseTemplate.png")).getImage();
-      int leveys = getWidth()- 200;
-      Image newImage = img.getScaledInstance(leveys , -1, Image.SCALE_FAST);
-      
+      int leveys = getWidth() - 200;
+      Image newImage = img.getScaledInstance(leveys, -1, Image.SCALE_FAST);
+
       imgLabel.setIcon(new ImageIcon(newImage));
 
       cardPanel.addComponentListener(new ComponentListener() {
-         public void componentResized(ComponentEvent e){
-            int leveys = getWidth() -200;
+         public void componentResized(ComponentEvent e) {
+            int leveys = getWidth() - 200;
             Image newImage = img.getScaledInstance(leveys, -1, Image.SCALE_FAST);
             imgLabel.setIcon(new ImageIcon(newImage));
          }
+
          @Override
          public void componentMoved(ComponentEvent e) {
-        
          }
 
          @Override
          public void componentShown(ComponentEvent e) {
-          
          }
-
+         
          @Override
          public void componentHidden(ComponentEvent e) {
          }
+
       });
       picturePanel.add(imgLabel, BorderLayout.CENTER);
 
@@ -430,148 +426,175 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
    }
 
    private void showConfirmationDialog(JPanel playViewCard) {
-      String[] options = {"Kyllä, Palaa Päävalikkoon", "En, jatka peliä"};
+      String[] options = { "Kyllä, Palaa Päävalikkoon", "En, jatka peliä" };
       int confirmed = JOptionPane.showOptionDialog(playViewCard,
-              "Haluatko varmasti keskeyttää pelin ja palata takaisin päävalikkoon?",
-              "",
-              JOptionPane.YES_NO_OPTION,
-              JOptionPane.QUESTION_MESSAGE,
-              null,
-              options,
-              options[0]);
-  
+            "Haluatko varmasti keskeyttää pelin ja palata takaisin päävalikkoon?",
+            "",
+            JOptionPane.YES_NO_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            options,
+            options[0]);
+
       if (confirmed == JOptionPane.YES_OPTION) {
-          JPanel menuCard = createMenuCard();
-          cardPanel.add(menuCard, "MainMenu");
-          cardLayout.show(cardPanel, "MainMenu");
+         JPanel menuCard = createMenuCard();
+         cardPanel.add(menuCard, "MainMenu");
+         cardLayout.show(cardPanel, "MainMenu");
       } else if (confirmed == JOptionPane.NO_OPTION) {
-          JDialog dialog = (JDialog) JOptionPane.getRootFrame().getOwnedWindows()[0];
-          dialog.addWindowListener(new WindowAdapter() {
-              @Override
-              public void windowClosing(WindowEvent e) {
-                  JDialog dialog = (JDialog) e.getWindow();
-                  dialog.dispose();
-              }
-          });
+         JDialog dialog = (JDialog) JOptionPane.getRootFrame().getOwnedWindows()[0];
+         dialog.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+               JDialog dialog = (JDialog) e.getWindow();
+               dialog.dispose();
+            }
+         });
       } else if (confirmed == JOptionPane.CLOSED_OPTION) {
-          JDialog dialog = (JDialog) JOptionPane.getRootFrame().getOwnedWindows()[0];
-          dialog.addWindowListener(new WindowAdapter() {
-              @Override
-              public void windowClosing(WindowEvent e) {
-                  JDialog dialog = (JDialog) e.getWindow();
-                  dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-              }
-          });
+         JDialog dialog = (JDialog) JOptionPane.getRootFrame().getOwnedWindows()[0];
+         dialog.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+               JDialog dialog = (JDialog) e.getWindow();
+               dialog.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
+            }
+         });
       }
-  }
+   }
 
-  private void addKeyboardButtonListeners(JPanel buttonPanel, String word, List<JLabel> labelList, JLabel imgLabel, JLabel pointsLabel, JLabel guessesLeftLabel) {
-     // Add ActionListener to each button in the keyboardPanel
+   private void addKeyboardButtonListeners(JPanel buttonPanel, String word, List<JLabel> labelList, JLabel imgLabel,
+         JLabel pointsLabel, JLabel guessesLeftLabel) {
+      // Add ActionListener to each button in the keyboardPanel
 
-     HirsipuuArvaukset määrä = new HirsipuuArvaukset();
-     int arvaustenmäärä = määrä.valittuvaikeus(group);
-     String[] imagePaths = { "HirsipuuKuvat/Hangman1.png", "HirsipuuKuvat/Hangman2.png", "HirsipuuKuvat/Hangman3.png", "HirsipuuKuvat/Hangman4.png",
-           "HirsipuuKuvat/Hangman5.png", "HirsipuuKuvat/Hangman6.png", "HirsipuuKuvat/Hangman7.png", "HirsipuuKuvat/Hangman8.png",
-           "HirsipuuKuvat/Hangman9.png", "HirsipuuKuvat/Hangman10.png", "HirsipuuKuvat/Hangman11.png", "HirsipuuKuvat/Hangman12.png" };
+      HirsipuuArvaukset määrä = new HirsipuuArvaukset();
+      int arvaustenmäärä = määrä.valittuvaikeus(group);
+      String[] imagePaths = { "HirsipuuKuvat/Hangman1.png", "HirsipuuKuvat/Hangman2.png", "HirsipuuKuvat/Hangman3.png",
+            "HirsipuuKuvat/Hangman4.png",
+            "HirsipuuKuvat/Hangman5.png", "HirsipuuKuvat/Hangman6.png", "HirsipuuKuvat/Hangman7.png",
+            "HirsipuuKuvat/Hangman8.png",
+            "HirsipuuKuvat/Hangman9.png", "HirsipuuKuvat/Hangman10.png", "HirsipuuKuvat/Hangman11.png",
+            "HirsipuuKuvat/Hangman12.png" };
 
-     for (Component c : buttonPanel.getComponents()) {
-        if (c instanceof JButton) {
-           ((JButton) c).addActionListener(e -> {
-              String letter = ((JButton) c).getText();
-              boolean letterFound = false;
-              for (int i = 0; i < word.length(); i++) {
-                 if (word.charAt(i) == letter.toLowerCase().charAt(0) ||
-                       word.charAt(i) == letter.toUpperCase().charAt(0)) {
-                    labelList.get(i).setText(letter);
-                    letterFound = true;
-                    points += 5;
-                    c.setBackground(Color.GREEN);
-                    c.setEnabled(false);
+      for (Component c : buttonPanel.getComponents()) {
+         if (c instanceof JButton) {
+            ((JButton) c).addActionListener(e -> {
+               String letter = ((JButton) c).getText();
+               boolean letterFound = false;
+               for (int i = 0; i < word.length(); i++) {
+                  if (word.charAt(i) == letter.toLowerCase().charAt(0) ||
+                        word.charAt(i) == letter.toUpperCase().charAt(0)) {
+                     labelList.get(i).setText(letter);
+                     letterFound = true;
+                     points += 5;
+                     c.setBackground(Color.GREEN);
+                     c.setEnabled(false);
 
-                    pointsLabel.setText("Pisteet: " + points);
-                    guessesLeft = arvaustenmäärä - incorrectGuess;
-                    guessesLeftLabel.setText("Yrityksiä jäljellä: " + guessesLeft);
-                    correctGuess++;
-                 }
+                     pointsLabel.setText("Pisteet: " + points);
+                     guessesLeft = arvaustenmäärä - incorrectGuess;
+                     guessesLeftLabel.setText("Yrityksiä jäljellä: " + guessesLeft);
+                     correctGuess++;
+                  }
+               }
+               if (!letterFound) {
+                  // Handle incorrect guess
+                  points = Math.max(points - 2, 0); // remove 2 points for an incorrect guess but keep the points >= 0
+                  incorrectGuess++;
+                  guessesLeft = arvaustenmäärä - incorrectGuess;
+
+                  // Update the hangman picture
+                  int imageIndex = (incorrectGuess - 1) * (imagePaths.length - 1) / arvaustenmäärä;
+                  if (imageIndex < imagePaths.length - 1) {
+                     Image img = new ImageIcon(this.getClass().getResource(imagePaths[imageIndex])).getImage();
+                     int leveys = getWidth() - 200;
+                     Image newImage = img.getScaledInstance(leveys, -1, Image.SCALE_FAST);
+                     cardPanel.addComponentListener(new ComponentListener() {
+                        public void componentResized(ComponentEvent e) {
+                           int leveys = getWidth() - 200;
+                           Image newImage = img.getScaledInstance(leveys, -1, Image.SCALE_FAST);
+                           imgLabel.setIcon(new ImageIcon(newImage));
+                        }
+
+                        @Override
+                        public void componentMoved(ComponentEvent e) {
+
+                        }
+
+                        @Override
+                        public void componentShown(ComponentEvent e) {
+
+                        }
+
+                        @Override
+                        public void componentHidden(ComponentEvent e) {
+                        }
+                     });
+                     imgLabel.setIcon(new ImageIcon(newImage));
+                  }
+
+                  if (incorrectGuess > arvaustenmäärä) {
+                     // Update the hangman picture to the last one
+                     Image img = new ImageIcon(this.getClass().getResource(imagePaths[imagePaths.length - 1]))
+                           .getImage();
+                     int leveys = getWidth() - 200;
+                     Image newImage = img.getScaledInstance(leveys, -1, Image.SCALE_FAST);
+                     cardPanel.addComponentListener(new ComponentListener() {
+                        public void componentResized(ComponentEvent e) {
+                           int leveys = getWidth() - 200;
+                           Image newImage = img.getScaledInstance(leveys, -1, Image.SCALE_FAST);
+                           imgLabel.setIcon(new ImageIcon(newImage));
+                        }
+
+                        @Override
+                        public void componentMoved(ComponentEvent e) {
+
+                        }
+
+                        @Override
+                        public void componentShown(ComponentEvent e) {
+
+                        }
+
+                        @Override
+                        public void componentHidden(ComponentEvent e) {
+                        }
+                     });
+                     imgLabel.setIcon(new ImageIcon(newImage));
+
+                     gameOver();
+                  }
+
+                  pointsLabel.setText("Pisteet: " + points);
+                  guessesLeftLabel.setText("Yrityksiä jäljellä: " + guessesLeft);
+                  c.setBackground(Color.GRAY);
+                  c.setEnabled(false);
+               } else {
+                  checkIfWordIsComplete(word, correctGuess);
+               }
+            });
+         }
+      }
+   }
+
+   private void checkIfWordIsComplete(String word, int correctGuess) {
+      boolean allReplaced = true;
+      for (int j = 0; j < word.length(); j++) {
+          if (word.charAt(j) == '_') {
+              allReplaced = false;
+              break;
+          }
+      }
+  
+      if (allReplaced) {
+          boolean onlySpaces = true;
+          for (int j = 0; j < word.length(); j++) {
+              if (word.charAt(j) != ' ' && word.charAt(j) != '_') {
+                  onlySpaces = false;
+                  break;
               }
-              if (!letterFound) {
-                 // Handle incorrect guess
-                 points = Math.max(points - 2, 0); // remove 2 points for an incorrect guess but keep the points >= 0
-                 incorrectGuess++;
-                 guessesLeft = arvaustenmäärä - incorrectGuess;
-
-                 // Update the hangman picture
-                 int imageIndex = (incorrectGuess - 1) * (imagePaths.length - 1) / arvaustenmäärä;
-                 if (imageIndex < imagePaths.length - 1) {
-                    Image img = new ImageIcon(this.getClass().getResource(imagePaths[imageIndex])).getImage();
-                    int leveys = getWidth() - 200;
-                    Image newImage = img.getScaledInstance(leveys, -1, Image.SCALE_FAST);
-                    cardPanel.addComponentListener(new ComponentListener() {
-                     public void componentResized(ComponentEvent e){
-                        int leveys = getWidth() -200;
-                        Image newImage = img.getScaledInstance(leveys, -1, Image.SCALE_FAST);
-                        imgLabel.setIcon(new ImageIcon(newImage));
-                     }
-                     @Override
-                     public void componentMoved(ComponentEvent e) {
-                    
-                     }
-            
-                     @Override
-                     public void componentShown(ComponentEvent e) {
-                      
-                     }
-            
-                     @Override
-                     public void componentHidden(ComponentEvent e) {
-                     }
-                  });
-                    imgLabel.setIcon(new ImageIcon(newImage));
-                 }
-
-                 if (incorrectGuess > arvaustenmäärä) {
-                    // Update the hangman picture to the last one
-                    Image img = new ImageIcon(this.getClass().getResource(imagePaths[imagePaths.length - 1]))
-                          .getImage();
-                    int leveys = getWidth() - 200;
-                    Image newImage = img.getScaledInstance(leveys, -1, Image.SCALE_FAST);
-                    cardPanel.addComponentListener(new ComponentListener() {
-                     public void componentResized(ComponentEvent e){
-                        int leveys = getWidth() -200;
-                        Image newImage = img.getScaledInstance(leveys, -1, Image.SCALE_FAST);
-                        imgLabel.setIcon(new ImageIcon(newImage));
-                     }
-                     @Override
-                     public void componentMoved(ComponentEvent e) {
-                    
-                     }
-            
-                     @Override
-                     public void componentShown(ComponentEvent e) {
-                      
-                     }
-            
-                     @Override
-                     public void componentHidden(ComponentEvent e) {
-                     }
-                  });
-                    imgLabel.setIcon(new ImageIcon(newImage));
-
-                    gameOver();
-                 }
-
-                 pointsLabel.setText("Pisteet: " + points);
-                 guessesLeftLabel.setText("Yrityksiä jäljellä: " + guessesLeft);
-                 c.setBackground(Color.GRAY);
-                 c.setEnabled(false);
-              } else {
-                 if (correctGuess == word.length()) {
-                    gameWon();
-                 }
-              }
-           });
-        }
-     }
+          }
+          if (onlySpaces || correctGuess == word.replace(" ", "").length()) {
+              gameWon();
+          }
+      }
   }
 
    private void gameWon() {
@@ -584,18 +607,16 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       win.setWinsound();
       win.play();
 
-
       incorrectGuess = 0;
       correctGuess = 0;
-     
-      
+
       JDialog dialog = new JDialog();
       dialog.setUndecorated(true);
       dialog.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
       dialog.setTitle("Voitit pelin");
       dialog.setModal(true);
       dialog.setResizable(false);
-   
+
       JPanel messagePane = new JPanel();
       JLabel messageLabel = new JLabel("VOITIT! Sinulla oli " + points + " pistettä");
       messagePane.add(messageLabel);
@@ -611,7 +632,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
          dialog.dispose();
       });
       buttonPane.add(playAgainButton);
-   
+
       JButton mainMenuButton = new JButton("Palaa päävalikkoon");
       mainMenuButton.addActionListener(e -> {
          JPanel menuCard = createMenuCard();
@@ -620,26 +641,24 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
          dialog.dispose();
       });
       buttonPane.add(mainMenuButton);
-   
+
       dialog.add(buttonPane, BorderLayout.SOUTH);
       dialog.pack();
       dialog.setLocationRelativeTo(null);
       dialog.setVisible(true);
-      try{
+      try {
          win.stop();
-      }
-      catch(Exception e){
+      } catch (Exception e) {
 
       }
    }
-
 
    private void gameOver() {
 
       incorrectGuess = 0;
       correctGuess = 0;
       points = 0;
-   
+
       Sound dead = new Sound();
       dead.setSound();
       dead.play();
@@ -679,39 +698,36 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       dialog.pack();
       dialog.setLocationRelativeTo(null);
       dialog.setVisible(true);
-      try{
+      try {
          dead.stop();
-      }
-      catch(Exception e){
-
+      } catch (Exception e) {
       }
    }
-  
-  
+
    private List<JLabel> addUnderscoreLabels(String word, JPanel panel) {
       List<JLabel> labelList = new ArrayList<>();
       Font font = new Font("Arial", Font.BOLD, 24);
       for (int i = 0; i < word.length(); i++) {
-          char c = word.charAt(i);
-          JLabel label;
-          if (c == ' ') {
-              label = new JLabel(" ");
-          } else {
-              label = new JLabel("_ ");
-          }
-          label.setFont(font);
-          label.setHorizontalAlignment(SwingConstants.CENTER);
-          panel.add(label);
-          labelList.add(label);
+         char c = word.charAt(i);
+         JLabel label;
+         if (c == ' ') {
+            label = new JLabel(" ");
+         } else {
+            label = new JLabel("_ ");
+         }
+         label.setFont(font);
+         label.setHorizontalAlignment(SwingConstants.CENTER);
+         panel.add(label);
+         labelList.add(label);
       }
       return labelList;
-  }
+   }
 
    private JPanel createKeyboardPanel() {
       String row1 = "1234567890";
       String row2 = "QWERTYUIOPÅ";
       String row3 = "ASDFGHJKLÖÄ";
-      String row4 = "ZXCVBNM";
+      String row4 = "ZXCVBNM'-:";
 
       String[] rows = { row1, row2, row3, row4 };
       JPanel buttonPanel = new JPanel(new GridBagLayout());
@@ -731,8 +747,6 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
       return buttonPanel;
    }
-
-
 
    @Override
    public void actionPerformed(ActionEvent e) {
