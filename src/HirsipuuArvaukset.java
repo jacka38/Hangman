@@ -29,15 +29,15 @@ public class HirsipuuArvaukset {
 
         switch (vaikeustaso) {
             case "Helppo":
-                arvaustenmäärä = 7;
+                arvaustenmäärä = 12;
                break;
    
             case "Keskivaikea":
-                arvaustenmäärä = 5;
+                arvaustenmäärä = 8;
                break;
    
             case "Vaikea":
-                arvaustenmäärä = 3;
+                arvaustenmäärä = 4;
                break;
    
             case "Mahdoton":
