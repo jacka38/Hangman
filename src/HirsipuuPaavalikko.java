@@ -629,7 +629,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
                      });
                      imgLabel.setIcon(new ImageIcon(newImage));
 
-                     gameOver();
+                     gameOver(word, labelList);
                   }
 
                   pointsLabel.setText("Pisteet: " + points);
@@ -723,7 +723,12 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       }
    }
 
-   private void gameOver() {
+   private void gameOver(String word, List<JLabel> labelList) {
+
+      // Set all the hidden letters in the word to be visible
+      for (int i = 0; i < word.length(); i++) {
+         labelList.get(i).setText(Character.toString(word.charAt(i)));
+      }
 
       incorrectGuess = 0;
       correctGuess = 0;
