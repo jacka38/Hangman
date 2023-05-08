@@ -6,7 +6,7 @@ import javax.swing.JRadioButton;
 
 public class HirsipuuPeliAsetukset { //Näkymä, josta valitaan asetukset pelille
 
-    final String[] Kategoriat = {"Satunnainen", "Maat", "Automerkit", "Jaskanseksifantasiat"};
+    final String[] Kategoriat = {"Satunnainen", "Maat", "Automerkit", "Englannin kieli", "Elokuvat", "Julkkikset"};
     public HirsipuuPeliAsetukset() {
 
     }

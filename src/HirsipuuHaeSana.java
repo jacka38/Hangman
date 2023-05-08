@@ -11,7 +11,7 @@ import java.util.Random;
 
 public class HirsipuuHaeSana { // Class to get a random word from chosen category
     
-    final String[] Kategoriat = {"Maat", "Automerkit", "Jaskanseksifantasiat, Elokuvat"};
+    final String[] Kategoriat = {"Maat", "Automerkit", "Englannin kieli", "Elokuvat", "Julkkikset"};
 
     public HirsipuuHaeSana(){
 
