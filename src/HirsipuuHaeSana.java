@@ -23,7 +23,7 @@ public class HirsipuuHaeSana { // Class to get a random word from chosen categor
             int randomKategoria = rand.nextInt(Kategoriat.length);
             file = Kategoriat[randomKategoria];
         }
-        String filename = "src/" + file + ".txt";
+        String filename = "src/Kategoriat/" + file + ".txt";
     
         List<String> sanat = new ArrayList<String>();
         try(BufferedReader reader = new BufferedReader(new FileReader(filename))){

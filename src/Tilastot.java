@@ -2,8 +2,10 @@ package src;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
@@ -12,7 +14,6 @@ import java.util.List;
 import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 import javax.swing.JComboBox;
-import javax.swing.JLabel;
 import javax.swing.JTextArea;
 
 public class Tilastot {
@@ -91,7 +92,7 @@ public class Tilastot {
             }
         }
         try{
-            BufferedReader reader = new BufferedReader(new FileReader("src/Tilastotiedostot/LastGame.txt"));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/Tilastotiedostot/LastGame.txt"), "UTF-8"));
             String lastgame = reader.readLine();
             tempScore = lastgame.split(",");
             reader.close();
@@ -174,7 +175,7 @@ public class Tilastot {
 
 
         try{
-            BufferedReader reader = new BufferedReader(new FileReader("src/Tilastotiedostot/top3.txt"));
+            BufferedReader reader = new BufferedReader(new InputStreamReader(new FileInputStream("src/Tilastotiedostot/top3.txt"), "UTF-8"));
             
             String scoreLine = reader.readLine();
             if(scoreLine != null){
@@ -195,7 +196,7 @@ public class Tilastot {
             reader.close();
 
 
-            BufferedReader reader1 = new BufferedReader(new FileReader("src/Tilastotiedostot/LastGame.txt"));
+            BufferedReader reader1 = new BufferedReader(new InputStreamReader(new FileInputStream("src/Tilastotiedostot/LastGame.txt"), "UTF-8"));
             scoreLine = reader1.readLine();
             if(scoreLine != null){
                 String[] tempScore = scoreLine.split(",");
@@ -212,18 +213,44 @@ public class Tilastot {
     public void createTextareas(){
 
 
-        top1text = new JTextArea("\nPisteet: " + top1score.get(0) + "\nArvaukset: " + top1score.get(1) + "\nVaikeustaso: " + top1score.get(2)
-         + "\nSana: " + top1score.get(3) + "\nKategoria: " + top1score.get(4));
+        JTextArea emptytop1 = new JTextArea("\nPisteet: -" + "\nArvaukset: -" + "\nVaikeustaso: -"  + "\nSana: -" + "\nKategoria: -");
+        JTextArea emptytop2 = new JTextArea("\nPisteet: -" + "\nArvaukset: -" + "\nVaikeustaso: -"  + "\nSana: -" + "\nKategoria: -");
+        JTextArea emptytop3 = new JTextArea("\nPisteet: -" + "\nArvaukset: -" + "\nVaikeustaso: -"  + "\nSana: -" + "\nKategoria: -");
+        JTextArea emptyvika = new JTextArea("\nPisteet: -" + ", Arvaukset: -"+ ", Vaikeustaso: -"+ ", Sana: -" + ", Kategoria: -" + "\n\n");
+        vikatext = emptyvika;
+        top1text = emptytop1;
+        top2text = emptytop2;
+        top3text = emptytop3;
         top1text.setEditable(false);
-        top2text = new JTextArea("\nPisteet: " + top2score.get(0) + "\nArvaukset: " + top2score.get(1) + "\nVaikeustaso: " + top2score.get(2)
-        + "\nSana: " + top2score.get(3) + "\nKategoria: " + top2score.get(4));
         top2text.setEditable(false);
-        top3text = new JTextArea("\nPisteet: " + top3score.get(0) + "\nArvaukset: " + top3score.get(1) + "\nVaikeustaso: " + top3score.get(2)
-        + "\nSana: " + top3score.get(3) + "\nKategoria: " + top3score.get(4));
         top3text.setEditable(false);
-        vikatext = new JTextArea("\nPisteet: " + vikapeli.get(0) + ", Arvaukset: " + vikapeli.get(1) + ", Vaikeustaso: " + vikapeli.get(2)
-        + ", Sana: " + vikapeli.get(3) + ", Kategoria: " + vikapeli.get(4) + "\n\n");
         vikatext.setEditable(false);
+
+        if (!top1score.isEmpty()){
+            top1text = new JTextArea("\nPisteet: " + top1score.get(0) + "\nArvaukset: " + top1score.get(1)
+                    + "\nVaikeustaso: " + top1score.get(2)
+                    + "\nSana: " + top1score.get(3) + "\nKategoria: " + top1score.get(4));
+            top1text.setEditable(false);
+        }
+        if(!top2score.isEmpty()){
+            top2text = new JTextArea("\nPisteet: " + top2score.get(0) + "\nArvaukset: " + top2score.get(1)
+                    + "\nVaikeustaso: " + top2score.get(2)
+                    + "\nSana: " + top2score.get(3) + "\nKategoria: " + top2score.get(4));
+            top2text.setEditable(false);
+        }
+        if(!top3score.isEmpty()){
+            top3text = new JTextArea("\nPisteet: " + top3score.get(0) + "\nArvaukset: " + top3score.get(1)
+                    + "\nVaikeustaso: " + top3score.get(2)
+                    + "\nSana: " + top3score.get(3) + "\nKategoria: " + top3score.get(4));
+            top3text.setEditable(false);
+        }
+        if(!vikapeli.isEmpty()){
+            vikatext = new JTextArea("\nPisteet: " + vikapeli.get(0) + ", Arvaukset: " + vikapeli.get(1)
+                    + ", Vaikeustaso: " + vikapeli.get(2)
+                    + ", Sana: " + vikapeli.get(3) + ", Kategoria: " + vikapeli.get(4) + "\n\n");
+            vikatext.setEditable(false);
+        }
+        
 
         
     }

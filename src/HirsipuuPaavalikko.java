@@ -38,6 +38,8 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
       // Create a container panel to hold all the cards
       cardPanel = new JPanel(new CardLayout());
+      Tilastot tilastot = new Tilastot();
+      tilastot.setFileTilastot();
       cardLayout = (CardLayout) cardPanel.getLayout();
       cardPanel.add(createMenuCard(), "Menu");
       cardPanel.add(createNewGameCard(), "Uusi Peli");
@@ -226,7 +228,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
       difficultyTitle.add(difficultyLabel, BorderLayout.LINE_START);
 
-      difficultyTitle.setToolTipText("<html>" + "Vaikeustasot määrittävät arvaustenmäärän" + "<br>" + "Helppo = 12"
+      difficultyTitle.setToolTipText("<html>" + "Vaikeustasot määrittävät montako arvausta saa mennä väärin" + "<br>" + "Helppo = 12"
             + "<br>" + "Keskivaikea = 8" + "<br>" + "Vaikea = 4" + "<br>" + "Mahdoton = 1" + "</html>");
       difficultyTitle.add(help, BorderLayout.CENTER);
 
@@ -438,7 +440,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
       HirsipuuArvaukset määrä = new HirsipuuArvaukset();
       int arvaustenmäärä = määrä.valittuvaikeus(group);
-      JLabel guessesLeftLabel = new JLabel("Yrityksiä jäljellä: " + arvaustenmäärä);
+      JLabel guessesLeftLabel = new JLabel("Vääriä arvauksia jäljellä: " + arvaustenmäärä);
       guessesLeftLabel.setFont(new Font("Arial", Font.BOLD, 14));
       guessesLeftLabel.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
 
@@ -560,7 +562,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
                      pointsLabel.setText("Pisteet: " + points);
                      guessesLeft = arvaustenmäärä - incorrectGuess;
-                     guessesLeftLabel.setText("Yrityksiä jäljellä: " + guessesLeft);
+                     guessesLeftLabel.setText("Vääriä arvauksia jäljellä: " + guessesLeft);
                      correctGuess++;
                   }
                }
@@ -633,7 +635,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
                   }
 
                   pointsLabel.setText("Pisteet: " + points);
-                  guessesLeftLabel.setText("Yrityksiä jäljellä: " + guessesLeft);
+                  guessesLeftLabel.setText("Vääriä arvauksia jäljellä: " + guessesLeft);
                   c.setBackground(Color.GRAY);
                   c.setEnabled(false);
                } else {
