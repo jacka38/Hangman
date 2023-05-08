@@ -226,8 +226,8 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
       difficultyTitle.add(difficultyLabel, BorderLayout.LINE_START);
 
-      difficultyTitle.setToolTipText("<html>" + "Vaikeustasot määrittävät arvaustenmäärän" + "<br>" + "Helppo = 7"
-            + "<br>" + "Keskivaikea = 5" + "<br>" + "Vaikea = 3" + "<br>" + "Mahdoton = 1" + "</html>");
+      difficultyTitle.setToolTipText("<html>" + "Vaikeustasot määrittävät arvaustenmäärän" + "<br>" + "Helppo = 12"
+            + "<br>" + "Keskivaikea = 8" + "<br>" + "Vaikea = 4" + "<br>" + "Mahdoton = 1" + "</html>");
       difficultyTitle.add(help, BorderLayout.CENTER);
 
       c.gridy = 3;
@@ -304,10 +304,80 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
       JPanel statsCard = new JPanel(new BorderLayout());
       JPanel bottomPanel = new JPanel(new BorderLayout());
+      JPanel top3Panel = new JPanel(new GridBagLayout());
+      GridBagConstraints c = new GridBagConstraints();
       JButton backButton = createBackButton();
 
       JLabel statsTitle = createTitleLabel("Tilastot");
       statsCard.add(statsTitle, BorderLayout.NORTH);
+      Tilastot tilastot = new Tilastot();
+      tilastot.createTextareas();
+
+      JLabel empty = new JLabel(" ");
+      JLabel top3pelitTitle = new JLabel("Top 3 pelit");
+      top3pelitTitle.setFont(new Font("ARIAL", Font.BOLD, 20));
+      JLabel vikaTitle = new JLabel("Viimeisin peli");
+      vikaTitle.setFont(new Font("ARIAL", Font.BOLD, 20));
+      JLabel top1title = new JLabel("Top 1:");
+      JLabel top2title = new JLabel("Top 2:");
+      JLabel top3title = new JLabel("Top 3:");
+      JTextArea top1 = tilastot.getTop1text();
+      top1.setBackground(getBackground());
+      JTextArea top2 = tilastot.getTop2text();
+      top2.setBackground(getBackground());
+      JTextArea top3 = tilastot.getTop3text();
+      top3.setBackground(getBackground());
+      JTextArea vika = tilastot.getVikatext();
+      vika.setBackground(getBackground());
+
+      c.gridx = 1;
+      c.gridy = 0;
+      c.weightx = 0.5;
+      c.weighty = 0;
+      top3Panel.add(vikaTitle, c);
+
+      c.gridx = 1;
+      c.gridy = 1;   
+      c.weighty = 0;  
+      top3Panel.add(vika, c); 
+
+      c.gridx = 1;
+      c.gridy = 2;
+      c.weighty = 0;
+      top3Panel.add(top3pelitTitle, c);
+
+      c.gridx = 0;
+      c.gridy = 3;
+      top3Panel.add(empty, c);
+
+
+      c.gridx = 0;
+      c.gridy = 5;
+      c.weightx = 0.5;
+      c.weighty = 0;
+      top3Panel.add(top1, c);
+
+      c.gridx = 1;
+      c.gridy = 5;
+      top3Panel.add(top2, c);
+
+      c.gridx = 2;
+      c.gridy = 5;
+      top3Panel.add(top3, c);
+
+      c.gridx = 0;
+      c.gridy = 4;
+      c.weighty = 0;
+      top3Panel.add(top1title, c);
+      c.gridx = 1;
+      c.gridy = 4;
+      top3Panel.add(top2title, c);
+      c.gridx = 2;
+      c.gridy = 4;
+      top3Panel.add(top3title, c);
+
+      statsCard.add(top3Panel, BorderLayout.CENTER);
+
 
       bottomPanel.add(backButton, BorderLayout.LINE_END);
       statsCard.add(bottomPanel, BorderLayout.PAGE_END);
