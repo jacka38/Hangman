@@ -3,9 +3,11 @@ package src;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
+import java.io.FileOutputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
@@ -69,7 +71,7 @@ public class Tilastot {
         }
 
         try{
-            FileWriter fw = new FileWriter(viimeisinpeli);
+            Writer fw = new OutputStreamWriter(new FileOutputStream(viimeisinpeli), StandardCharsets.UTF_8);
             fw.write(points+"," + guesses+"," + vaikeustaso+"," + word+"," + kategorialista.getSelectedItem().toString());
             fw.close();
         }
@@ -102,7 +104,7 @@ public class Tilastot {
         }
         if(top1score.isEmpty()){
             try{
-                FileWriter fw = new FileWriter(top3);
+                Writer fw = new OutputStreamWriter(new FileOutputStream(top3), StandardCharsets.UTF_8);
                 fw.write(points+"," + guesses+"," + vaikeustaso+"," + word+"," + kategorialista.getSelectedItem().toString());
                 fw.close();
             }
@@ -126,7 +128,7 @@ public class Tilastot {
             }
 
             try{
-                FileWriter fw = new FileWriter(top3);
+                Writer fw = new OutputStreamWriter(new FileOutputStream(top3), StandardCharsets.UTF_8);
                 fw.write(String.join(",", top1score) + "\n" 
                 + String.join(",", top2score) + "\n" + String.join(",", top3score));
                 fw.close();
@@ -213,10 +215,10 @@ public class Tilastot {
     public void createTextareas(){
 
 
-        JTextArea emptytop1 = new JTextArea("\nPisteet: -" + "\nArvaukset: -" + "\nVaikeustaso: -"  + "\nSana: -" + "\nKategoria: -");
-        JTextArea emptytop2 = new JTextArea("\nPisteet: -" + "\nArvaukset: -" + "\nVaikeustaso: -"  + "\nSana: -" + "\nKategoria: -");
-        JTextArea emptytop3 = new JTextArea("\nPisteet: -" + "\nArvaukset: -" + "\nVaikeustaso: -"  + "\nSana: -" + "\nKategoria: -");
-        JTextArea emptyvika = new JTextArea("\nPisteet: -" + ", Arvaukset: -"+ ", Vaikeustaso: -"+ ", Sana: -" + ", Kategoria: -" + "\n\n");
+        JTextArea emptytop1 = new JTextArea("Pisteet: -" + "\nArvaukset: -" + "\nVaikeustaso: -"  + "\nSana: -" + "\nKategoria: -");
+        JTextArea emptytop2 = new JTextArea("Pisteet: -" + "\nArvaukset: -" + "\nVaikeustaso: -"  + "\nSana: -" + "\nKategoria: -");
+        JTextArea emptytop3 = new JTextArea("Pisteet: -" + "\nArvaukset: -" + "\nVaikeustaso: -"  + "\nSana: -" + "\nKategoria: -");
+        JTextArea emptyvika = new JTextArea("Pisteet: -" + ", Arvaukset: -"+ ", Vaikeustaso: -"+ ", Sana: -" + ", Kategoria: -");
         vikatext = emptyvika;
         top1text = emptytop1;
         top2text = emptytop2;
@@ -227,36 +229,36 @@ public class Tilastot {
         vikatext.setEditable(false);
 
         if (!top1score.isEmpty()){
-            top1text = new JTextArea("\nPisteet: " + top1score.get(0) + "\nArvaukset: " + top1score.get(1)
+            top1text = new JTextArea("Pisteet: " + top1score.get(0) + "\nArvaukset: " + top1score.get(1)
                     + "\nVaikeustaso: " + top1score.get(2)
                     + "\nSana: " + top1score.get(3) + "\nKategoria: " + top1score.get(4));
             top1text.setEditable(false);
         }
         if(!top2score.isEmpty()){
-            top2text = new JTextArea("\nPisteet: " + top2score.get(0) + "\nArvaukset: " + top2score.get(1)
+            top2text = new JTextArea("Pisteet: " + top2score.get(0) + "\nArvaukset: " + top2score.get(1)
                     + "\nVaikeustaso: " + top2score.get(2)
                     + "\nSana: " + top2score.get(3) + "\nKategoria: " + top2score.get(4));
             top2text.setEditable(false);
         }
         if(!top3score.isEmpty()){
-            top3text = new JTextArea("\nPisteet: " + top3score.get(0) + "\nArvaukset: " + top3score.get(1)
+            top3text = new JTextArea("Pisteet: " + top3score.get(0) + "\nArvaukset: " + top3score.get(1)
                     + "\nVaikeustaso: " + top3score.get(2)
                     + "\nSana: " + top3score.get(3) + "\nKategoria: " + top3score.get(4));
             top3text.setEditable(false);
         }
         if(!vikapeli.isEmpty()){
-            vikatext = new JTextArea("\nPisteet: " + vikapeli.get(0) + ", Arvaukset: " + vikapeli.get(1)
+            vikatext = new JTextArea("Pisteet: " + vikapeli.get(0) + ", Arvaukset: " + vikapeli.get(1)
                     + ", Vaikeustaso: " + vikapeli.get(2)
-                    + ", Sana: " + vikapeli.get(3) + ", Kategoria: " + vikapeli.get(4) + "\n\n");
+                    + ", Sana: " + vikapeli.get(3) + ", Kategoria: " + vikapeli.get(4));
             vikatext.setEditable(false);
         }
         
-
         
     }
 
 
     public JTextArea getTop1text() {
+    
         return top1text;
     }
 
@@ -264,12 +266,14 @@ public class Tilastot {
 
 
     public JTextArea getTop2text() {
+    
         return top2text;
     }
 
 
 
     public JTextArea getTop3text() {
+  
         return top3text;
     }
 

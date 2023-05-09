@@ -14,6 +14,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
    public JComboBox kategorialista;
    private int incorrectGuess = 0;
    private int correctGuess = 0;
+   private int ActualCorrect = 0;
    private int points = 0;
    private int guessesLeft;
    private String word;
@@ -32,6 +33,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
       // Make the frame visible
       setVisible(true);
+      
    }
 
    private void initUI() {
@@ -52,7 +54,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       cardLayout.show(cardPanel, "Menu");
 
       // Set the size and visibility of the JFrame
-      setSize(800, 600);
+      setSize(1000,700);
       setVisible(true);
    }
 
@@ -304,18 +306,23 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
    private JPanel createStatsCard() {
       // Create the panel for the stats card
 
-      JPanel statsCard = new JPanel(new BorderLayout());
+      JPanel statsCard = new JPanel(new GridBagLayout());
       JPanel bottomPanel = new JPanel(new BorderLayout());
       JPanel top3Panel = new JPanel(new GridBagLayout());
+      JPanel top3TitlePanel = new JPanel(new GridBagLayout());
+      JPanel viimeisinpeliPanel = new JPanel(new GridBagLayout());
       GridBagConstraints c = new GridBagConstraints();
       JButton backButton = createBackButton();
 
       JLabel statsTitle = createTitleLabel("Tilastot");
-      statsCard.add(statsTitle, BorderLayout.NORTH);
+      c.gridx = 0;
+      c.gridy = 0;
+      c.weightx = 0.5;
+      c.weighty = 1;
+      c.anchor = GridBagConstraints.FIRST_LINE_START;
+      statsCard.add(statsTitle, c);
       Tilastot tilastot = new Tilastot();
       tilastot.createTextareas();
-
-      JLabel empty = new JLabel(" ");
       JLabel top3pelitTitle = new JLabel("Top 3 pelit");
       top3pelitTitle.setFont(new Font("ARIAL", Font.BOLD, 20));
       JLabel vikaTitle = new JLabel("Viimeisin peli");
@@ -332,58 +339,94 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       JTextArea vika = tilastot.getVikatext();
       vika.setBackground(getBackground());
 
-      c.gridx = 1;
+      c = new GridBagConstraints();
+
+      c.gridx = 0;
       c.gridy = 0;
+      c.weightx= 0.5;
+      c.weighty = 1;
+      c.anchor = GridBagConstraints.PAGE_START;
+      viimeisinpeliPanel.add(vikaTitle, c);
+      c.gridy = 1;
+      c.weighty = 0;
+      c.insets = new Insets(50, 0, 0, 0);
+      viimeisinpeliPanel.add(vika, c);
+
+      c.gridy = 1;
       c.weightx = 0.5;
       c.weighty = 0;
-      top3Panel.add(vikaTitle, c);
+      c.anchor = GridBagConstraints.PAGE_START;
+      statsCard.add(viimeisinpeliPanel, c);
 
-      c.gridx = 1;
-      c.gridy = 1;   
-      c.weighty = 0;  
-      top3Panel.add(vika, c); 
+      c = new GridBagConstraints();
 
-      c.gridx = 1;
+      c.gridx = 0;
+      c.gridy = 0;
+      c.anchor = GridBagConstraints.PAGE_START;
+      c.weightx= 0.5;
+      c.weighty = 1;
+      top3TitlePanel.add(top3pelitTitle, c);
+
+
       c.gridy = 2;
-      c.weighty = 0;
-      top3Panel.add(top3pelitTitle, c);
-
-      c.gridx = 0;
-      c.gridy = 3;
-      top3Panel.add(empty, c);
-
-
-      c.gridx = 0;
-      c.gridy = 5;
       c.weightx = 0.5;
       c.weighty = 0;
-      top3Panel.add(top1, c);
+      c.anchor = GridBagConstraints.CENTER;
+      c.insets = new Insets(50, 0,50,0);
+      statsCard.add(top3TitlePanel, c);
 
-      c.gridx = 1;
-      c.gridy = 5;
-      top3Panel.add(top2, c);
-
-      c.gridx = 2;
-      c.gridy = 5;
-      top3Panel.add(top3, c);
+      c = new GridBagConstraints();
 
       c.gridx = 0;
-      c.gridy = 4;
+      c.gridy = 1;
+      c.weightx= 0.5;
       c.weighty = 0;
       top3Panel.add(top1title, c);
+
+      c.gridy = 2;
+      c.weightx = 0;
+      top3Panel.add(top1, c);
+
+      c = new GridBagConstraints();
       c.gridx = 1;
-      c.gridy = 4;
+      c.gridy = 1;
+      c.weighty = 0;
+      c.weightx= 0.5;
       top3Panel.add(top2title, c);
+
+      c.gridy = 2;
+      c.weightx = 0;
+      top3Panel.add(top2, c);
+
+      c = new GridBagConstraints();
       c.gridx = 2;
-      c.gridy = 4;
+      c.gridy = 1;
+      c.weighty = 0;
+      c.weightx = 0.5;
       top3Panel.add(top3title, c);
 
-      statsCard.add(top3Panel, BorderLayout.CENTER);
+      c.gridy = 2;
+      c.weightx = 0;
+      top3Panel.add(top3, c);
+
+      c = new GridBagConstraints();
+      c.fill = GridBagConstraints.HORIZONTAL;
+      c.anchor = GridBagConstraints.CENTER;
+      c.gridy = 3;
+      c.weightx = 1;
+      c.weighty = 0;
+    
+      statsCard.add(top3Panel, c);
 
 
-      bottomPanel.add(backButton, BorderLayout.LINE_END);
-      statsCard.add(bottomPanel, BorderLayout.PAGE_END);
+      c = new GridBagConstraints();
+      c.gridy = 4;
+      c.weightx = 0.5;
+      c.weighty = 1;
+      c.anchor = GridBagConstraints.LAST_LINE_END;
+      statsCard.add(backButton, c);
 
+   
       return statsCard;
    }
 
@@ -566,6 +609,9 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
                      correctGuess++;
                   }
                }
+               if(letterFound) {
+                  ActualCorrect++;
+               }
                if (!letterFound) {
                   // Handle incorrect guess
                   points = Math.max(points - 2, 0); // remove 2 points for an incorrect guess but keep the points >= 0
@@ -673,8 +719,8 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
       Tilastot tilastot = new Tilastot();
       tilastot.setFileTilastot();
-      tilastot.writeLastGame(points, word, kategorialista, group, incorrectGuess+correctGuess);
-      tilastot.writeTop3List(points, word, kategorialista, group, incorrectGuess+correctGuess);
+      tilastot.writeLastGame(points, word, kategorialista, group, incorrectGuess+ActualCorrect);
+      tilastot.writeTop3List(points, word, kategorialista, group, incorrectGuess+ActualCorrect);
       Sound win = new Sound();
       win.setWinsound();
       win.play();
@@ -804,7 +850,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       String row1 = "1234567890";
       String row2 = "QWERTYUIOPÅ";
       String row3 = "ASDFGHJKLÖÄ";
-      String row4 = "ZXCVBNM'-:";
+      String row4 = "ZXCVBNM";
 
       String[] rows = { row1, row2, row3, row4 };
       JPanel buttonPanel = new JPanel(new GridBagLayout());
