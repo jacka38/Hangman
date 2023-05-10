@@ -1,0 +1,18 @@
+
+**Hirsipuu pelin säännöt ovat seuraavanlaiset**
+
+1.  Pelin tarkoituksena on, että pelaajan täytyy arvata salainen sana, kirjain kerrallaan. 
+    Jokaisesta väärästä arvauksesta piirretään pala hirsipuun rungosta, kunnes koko hahmo on piirretty.
+    Pelaajan tavoitteena on arvata sana ennen kuin hirsipuu on valmis.
+
+2.  Ennen pelin alkua pelaaja valitsee kategorian ja vaikeustason.
+    Vaikeustasot vaikuttavat arvauksien määrään ja ne ovat seuraavanlaiset: Helppo = 12, Keskivaikea = 8, Vaikea = 4 ja Mahdoton = 1 
+
+3.  Hirsipuu on pelin visuaalinen elementti. Se piirretään yksi palan kerrallaan, kun pelaaja arvaa kirjaimen väärin.
+    Jos pelaaja arvaa kaikki kirjaimet oikein ennen kuin hahmo on piirretty loppuun, pelaaja voittaa. 
+    Jos hahmo piirretään loppuun ennen kuin pelaaja arvaa sanan, pelaaja häviää.
+
+4.  Pelinäkymän näppäimistö kertoo pelaajalle, mitä kirjaimia hän on arvannut ja se myös kertoo mitkä kirjaimet ovat olleet arvattavassa sanassa.
+    Harmaaksi mennyt kirjain oli väärin ja vihreeksi muuttunut kirjain oli oikein.
+
+5.  Pelaajalle näkyy pisteet ja jäljellä olevien arvauksien määrä. Pisteitä saa oieasta arvauksesta 5 ja väärästä -2. Pelaajan pisteet eivät voi mennä negatiiviseksi.

@@ -6,23 +6,21 @@ import javax.swing.AbstractButton;
 import javax.swing.ButtonGroup;
 
 public class HirsipuuArvaukset {
+    //Setting the amount of guesses the player has
 
-    public HirsipuuArvaukset(){
-
+    public HirsipuuArvaukset() {
 
     }
-    
 
+    public int valittuvaikeus(ButtonGroup group) {
 
-    public int valittuvaikeus(ButtonGroup group){
-
-        String vaikeustaso ="";
+        String vaikeustaso = "";
         int arvaustenmäärä = 7;
 
-        for(Enumeration<AbstractButton> buttons = group.getElements(); buttons.hasMoreElements();){
+        for (Enumeration<AbstractButton> buttons = group.getElements(); buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();
 
-            if (button.isSelected()){
+            if (button.isSelected()) {
                 vaikeustaso = button.getText();
             }
         }
@@ -30,25 +28,24 @@ public class HirsipuuArvaukset {
         switch (vaikeustaso) {
             case "Helppo":
                 arvaustenmäärä = 12;
-               break;
-   
+                break;
+
             case "Keskivaikea":
                 arvaustenmäärä = 8;
-               break;
-   
+                break;
+
             case "Vaikea":
                 arvaustenmäärä = 4;
-               break;
-   
+                break;
+
             case "Mahdoton":
                 arvaustenmäärä = 1;
-               break;
-   
+                break;
 
             default:
-               break;
-         }
+                break;
+        }
 
-         return arvaustenmäärä;
+        return arvaustenmäärä;
     }
 }

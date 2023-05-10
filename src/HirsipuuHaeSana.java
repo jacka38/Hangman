@@ -1,17 +1,15 @@
 package src;
 
-
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-
-public class HirsipuuHaeSana { // Class to get a random word from chosen category
+public class HirsipuuHaeSana { 
+    // Class to get a random word from chosen category
     
     final String[] Kategoriat = {"Maat", "Automerkit", "Englannin kieli", "Elokuvat", "Julkkikset"};
 
