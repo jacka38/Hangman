@@ -22,7 +22,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
    public HirsipuuPaavalikko() {
       setTitle("Hirsipuu");
-      setSize(600, 500);
+      setSize(800, 700);
       setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
       // Initialize UI components
@@ -33,6 +33,12 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
 
       // Make the frame visible
       setVisible(true);
+
+      Dimension min = new Dimension(800, 700);
+      setMinimumSize(min);
+      Dimension max = new Dimension(1920, 1080);
+      setMaximumSize(max);
+
       
    }
 
@@ -54,7 +60,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       cardLayout.show(cardPanel, "Menu");
 
       // Set the size and visibility of the JFrame
-      setSize(800,650);
+      setSize(800,700);
       setVisible(true);
    }
 
@@ -417,6 +423,7 @@ public class HirsipuuPaavalikko extends JFrame implements ActionListener {
       top3Panel.add(top3, c);
 
       c = new GridBagConstraints();
+      c.insets = new Insets(0, 0,0,0);
       c.fill = GridBagConstraints.BOTH;
       c.anchor = GridBagConstraints.CENTER;
       c.gridy = 3;
