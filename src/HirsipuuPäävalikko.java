@@ -239,7 +239,7 @@ public class HirsipuuPäävalikko extends JFrame implements ActionListener {
       difficultyTitle.add(difficultyLabel, BorderLayout.LINE_START);
 
       difficultyTitle.setToolTipText(
-            "<html>" + "Vaikeustasot määrittävät montako arvausta saa mennä väärin" + "<br>" + "Helppo = 12"
+            "<html>" + "Vaikeustasot määrittävät montako arvausta saa mennä väärin" + "<br>" + "Helppo = 11"
                   + "<br>" + "Keskivaikea = 8" + "<br>" + "Vaikea = 4" + "<br>" + "Mahdoton = 1" + "</html>");
       difficultyTitle.add(help, BorderLayout.CENTER);
 
@@ -317,7 +317,6 @@ public class HirsipuuPäävalikko extends JFrame implements ActionListener {
       // Create the frame for the stats
 
       JPanel statsCard = new JPanel(new GridBagLayout());
-      JPanel bottomPanel = new JPanel(new BorderLayout());
       JPanel top3Panel = new JPanel(new GridBagLayout());
       JPanel top3TitlePanel = new JPanel(new GridBagLayout());
       JPanel viimeisinpeliPanel = new JPanel(new GridBagLayout());
