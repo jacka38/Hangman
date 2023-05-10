@@ -1,4 +1,3 @@
-package src;
 
 import javax.swing.JComboBox;
 import javax.swing.JRadioButton;

@@ -1,4 +1,3 @@
-package src;
 
 public class HirsipuuMain{
     //Main class. RUN PROGRAMN FROM HERE
