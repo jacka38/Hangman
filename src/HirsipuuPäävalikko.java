@@ -239,7 +239,7 @@ public class HirsipuuPäävalikko extends JFrame implements ActionListener {
       difficultyTitle.add(difficultyLabel, BorderLayout.LINE_START);
 
       difficultyTitle.setToolTipText(
-            "<html>" + "Vaikeustasot määrittävät montako arvausta saa mennä väärin" + "<br>" + "Helppo = 11"
+            "<html>" + "Vaikeustasot määrittävät montako arvausta saa mennä väärin" + "<br>" + "Helppo = 12"
                   + "<br>" + "Keskivaikea = 8" + "<br>" + "Vaikea = 4" + "<br>" + "Mahdoton = 1" + "</html>");
       difficultyTitle.add(help, BorderLayout.CENTER);
 
@@ -803,10 +803,14 @@ public class HirsipuuPäävalikko extends JFrame implements ActionListener {
    private void gameOver(String word, List<JLabel> labelList) {
       // game lost method
 
+
       // Set all the hidden letters in the word to be visible
       for (int i = 0; i < word.length(); i++) {
          labelList.get(i).setText(Character.toString(word.charAt(i)));
       }
+      HirsipuuTilastot tilastot = new HirsipuuTilastot();
+      tilastot.setFileTilastot();
+      tilastot.writeLastGame(0, word, kategorialista, group, incorrectGuess + ActualCorrect);
 
       incorrectGuess = 0;
       amountOfLettersGuessed = 0;
