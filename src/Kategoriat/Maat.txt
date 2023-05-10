@@ -3,7 +3,6 @@ Albania
 Algeria
 Andorra
 Angola
-Antigua ja Barbuda
 Argentiina
 Armenia
 Australia
@@ -19,7 +18,6 @@ Belize
 Benin
 Bhutan
 Bolivia
-Bosnia ja Hertsegovina
 Botswana
 Brasilia
 Brunei
@@ -30,7 +28,6 @@ Kambodza
 Kamerun
 Kanada
 Kap Verde
-Keski-Afrikan tasavalta
 Tsad
 Chile
 Kiina
@@ -47,7 +44,6 @@ Tanska
 Djibouti
 Dominica
 Dominikaaninen tasavalta
-Itä-Timor
 Ecuador
 Egypti
 El Salvador
@@ -68,7 +64,6 @@ Kreikka
 Grenada
 Guatemala
 Guinea
-Guinea-Bissau
 Guyana
 Haiti
 Honduras
@@ -87,8 +82,6 @@ Jordania
 Kazakstan
 Kenia
 Kiribati
-Pohjois-Korea
-Etelä-Korea
 Kuwait
 Kirgisia
 Laos
@@ -122,17 +115,13 @@ Namibia
 Nauru
 Nepal
 Alankomaat
-Uusi-Seelanti
 Nicaragua
-Niger
 Nigeria
-Pohjois-Makedonia
 Norja
 Oman
 Pakistan
 Palau
 Panama
-Papua-Uusi-Guinea
 Paraguay
 Peru
 Filippiinit
@@ -144,7 +133,6 @@ Venäjä
 Ruanda
 Saint Kitts ja Nevis
 Saint Lucia
-Saint Vincent ja Grenadiinit
 Samoa
 San Marino
 Sao Tome ja Principe
@@ -158,8 +146,6 @@ Slovakia
 Slovenia
 Salomonsaaret
 Somalia
-Etelä-Afrikka
-Etelä-Sudan
 Espanja
 Sri Lanka
 Sudan
@@ -176,3 +162,4 @@ Tonga
 Trinidad ja Tobago
 Tunisia
 Turk
+Yhdysvallat
