@@ -35,6 +35,6 @@ Muuta vaadittua:
 
 -Tilastotiedostot folderi on löydyttävä ja oltava tyhjä tai sisältäen tyhjät tekstitiedostot LastGame.txt ja top3.txt  
 
--Ääniefektit folderi ja siellä sisällä olevat dsdead.vaw ja win.wav on löydyttävä. 
+-Ääniefektit folderi ja siellä sisällä olevat dsdead.wav ja win.wav on löydyttävä. 
 
 -Luokat: HirsipuuMain.java, HirsipuuArvaukset.java, HirsipuuHaeSana.java, HirsipuuPäävalikko.java, HirsipuuSäännöt.java,    HirsipuuSound.java, HirsipuuTilastot.java 
