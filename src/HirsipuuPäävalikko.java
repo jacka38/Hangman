@@ -239,7 +239,7 @@ public class HirsipuuPäävalikko extends JFrame implements ActionListener {
       difficultyTitle.add(difficultyLabel, BorderLayout.LINE_START);
 
       difficultyTitle.setToolTipText(
-            "<html>" + "Vaikeustasot määrittävät montako arvausta saa mennä väärin" + "<br>" + "Helppo = 12"
+            "<html>" + "Vaikeustasot määrittävät montako arvausta saa mennä väärin" + "<br>" + "Helppo = 11"
                   + "<br>" + "Keskivaikea = 8" + "<br>" + "Vaikea = 4" + "<br>" + "Mahdoton = 1" + "</html>");
       difficultyTitle.add(help, BorderLayout.CENTER);
 

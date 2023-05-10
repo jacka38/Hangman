@@ -15,7 +15,7 @@ public class HirsipuuArvaukset {
     public int valittuvaikeus(ButtonGroup group) {
 
         String vaikeustaso = "";
-        int arvaustenmäärä = 7;
+        int arvaustenmäärä = 11;
 
         for (Enumeration<AbstractButton> buttons = group.getElements(); buttons.hasMoreElements();) {
             AbstractButton button = buttons.nextElement();
@@ -27,7 +27,7 @@ public class HirsipuuArvaukset {
 
         switch (vaikeustaso) {
             case "Helppo":
-                arvaustenmäärä = 12;
+                arvaustenmäärä = 11;
                 break;
 
             case "Keskivaikea":

@@ -12,7 +12,7 @@ public class HirsipuuPeliAsetukset {
 
     }
 
-    final JRadioButton helppo = new JRadioButton("Helppo");
+    final JRadioButton helppo = new JRadioButton("Helppo", true);
     final JRadioButton Keskivaikea = new JRadioButton("Keskivaikea");
     final JRadioButton Vaikea = new JRadioButton("Vaikea");
     final JRadioButton Mahdoton = new JRadioButton("Mahdoton");
