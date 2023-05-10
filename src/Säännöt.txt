@@ -17,4 +17,4 @@
     Harmaaksi mennyt kirjain oli väärin ja vihreeksi muuttunut kirjain oli oikein.
 
 5.  Pelaajalle näkyy pisteet ja jäljellä olevien arvauksien määrä.
-    Pisteitä saa oieasta arvauksesta 5 ja väärästä -2. Pelaajan pisteet eivät voi mennä negatiiviseksi.
+    Pisteitä saa oikeasta arvauksesta 5 ja väärästä -2. Pelaajan pisteet eivät voi mennä negatiiviseksi.
