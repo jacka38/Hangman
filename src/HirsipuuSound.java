@@ -17,7 +17,7 @@ public class HirsipuuSound {
     public void setSound() {
         try {
 
-            File file = new File("src/dsdead.wav");
+            File file = new File("src/Ääniefektit/dsdead.wav");
             sound = AudioSystem.getAudioInputStream(file);
             clip = AudioSystem.getClip();
             clip.open(sound);
@@ -31,7 +31,7 @@ public class HirsipuuSound {
     public void setWinsound() {
         try {
 
-            File file = new File("src/win.wav");
+            File file = new File("src/Ääniefektit/win.wav");
             sound = AudioSystem.getAudioInputStream(file);
             clip = AudioSystem.getClip();
             clip.open(sound);

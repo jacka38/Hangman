@@ -105,7 +105,7 @@ public class HirsipuuPäävalikko extends JFrame implements ActionListener {
       menuPanel.add(titleLabel, c);
 
       JLabel label = new JLabel();
-      Image img = new ImageIcon(this.getClass().getResource("hirsipuu2.gif")).getImage();
+      Image img = new ImageIcon(this.getClass().getResource("HirsipuuKuvat/hirsipuu.gif")).getImage();
       Image newImage = img.getScaledInstance(150, 150, Image.SCALE_DEFAULT);
       label.setIcon(new ImageIcon(newImage));
       c.insets = new Insets(10, 10, 0, 0);
