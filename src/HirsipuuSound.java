@@ -22,7 +22,7 @@ public class HirsipuuSound {
             clip = AudioSystem.getClip();
             clip.open(sound);
             FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(-15.0f);
+            gainControl.setValue(-25.0f);
         } catch (Exception e) {
 
         }
@@ -36,7 +36,7 @@ public class HirsipuuSound {
             clip = AudioSystem.getClip();
             clip.open(sound);
             FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-            gainControl.setValue(-20.0f);
+            gainControl.setValue(-35.0f);
         } catch (Exception e) {
 
         }
