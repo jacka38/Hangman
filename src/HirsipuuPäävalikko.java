@@ -36,7 +36,6 @@ public class HirsipuuPäävalikko extends JFrame implements ActionListener {
 
       Dimension min = new Dimension(800, 700);
       setMinimumSize(min);
-
    }
 
    private void initUI() {
@@ -466,15 +465,17 @@ public class HirsipuuPäävalikko extends JFrame implements ActionListener {
       JPanel picturePanel = new JPanel(new BorderLayout());
       JLabel imgLabel = new JLabel();
       Image img = new ImageIcon(this.getClass().getResource("HirsipuuKuvat/BaseTemplate.png")).getImage();
-      int leveys = getWidth() - 200;
-      Image newImage = img.getScaledInstance(leveys, -1, Image.SCALE_FAST);
+      int leveys = getWidth() -200;
+      int korkeus = getHeight() -300;
+      Image newImage = img.getScaledInstance(leveys, korkeus, Image.SCALE_FAST);
 
       imgLabel.setIcon(new ImageIcon(newImage));
 
       cardPanel.addComponentListener(new ComponentListener() {
          public void componentResized(ComponentEvent e) {
             int leveys = getWidth() - 200;
-            Image newImage = img.getScaledInstance(leveys, -1, Image.SCALE_FAST);
+            int korkeus = getHeight() -300;
+            Image newImage = img.getScaledInstance(leveys, korkeus, Image.SCALE_FAST);
             imgLabel.setIcon(new ImageIcon(newImage));
          }
 
@@ -643,11 +644,13 @@ public class HirsipuuPäävalikko extends JFrame implements ActionListener {
                   if (imageIndex < imagePaths.length - 1) {
                      Image img = new ImageIcon(this.getClass().getResource(imagePaths[imageIndex])).getImage();
                      int leveys = getWidth() - 200;
-                     Image newImage = img.getScaledInstance(leveys, -1, Image.SCALE_FAST);
+                     int korkeus = getHeight() -300;
+                     Image newImage = img.getScaledInstance(leveys, korkeus, Image.SCALE_FAST);
                      cardPanel.addComponentListener(new ComponentListener() {
                         public void componentResized(ComponentEvent e) {
                            int leveys = getWidth() - 200;
-                           Image newImage = img.getScaledInstance(leveys, -1, Image.SCALE_FAST);
+                           int korkeus = getHeight() -300;
+                           Image newImage = img.getScaledInstance(leveys, korkeus, Image.SCALE_FAST);
                            imgLabel.setIcon(new ImageIcon(newImage));
                         }
 
@@ -673,11 +676,13 @@ public class HirsipuuPäävalikko extends JFrame implements ActionListener {
                      Image img = new ImageIcon(this.getClass().getResource(imagePaths[imagePaths.length - 1]))
                            .getImage();
                      int leveys = getWidth() - 200;
-                     Image newImage = img.getScaledInstance(leveys, -1, Image.SCALE_FAST);
+                     int korkeus = getHeight() -300;
+                     Image newImage = img.getScaledInstance(leveys, korkeus, Image.SCALE_FAST);
                      cardPanel.addComponentListener(new ComponentListener() {
                         public void componentResized(ComponentEvent e) {
                            int leveys = getWidth() - 200;
-                           Image newImage = img.getScaledInstance(leveys, -1, Image.SCALE_FAST);
+                           int korkeus = getHeight() -300;
+                           Image newImage = img.getScaledInstance(leveys, korkeus, Image.SCALE_FAST);
                            imgLabel.setIcon(new ImageIcon(newImage));
                         }
 
